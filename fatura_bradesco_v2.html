@@ -1,0 +1,352 @@
+
+<h2 class="sr-only">Resumo da fatura Bradesco — Raissa de Sousa Delmoro, vencimento 10/05/2026</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.ttl{font-size:17px;font-weight:500;color:var(--color-text-primary)}
+.sub{font-size:12px;color:var(--color-text-secondary);margin-top:3px;margin-bottom:1.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.5rem}
+.card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:16px;border:1.5px solid transparent;cursor:pointer;transition:border-color .15s}
+.card:hover,.card.on{border-color:var(--color-border-primary)}
+.clbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-secondary);margin-bottom:8px}
+.cval{font-size:19px;font-weight:500}
+.csub{font-size:11px;color:var(--color-text-tertiary);margin-top:4px}
+.red{color:var(--color-text-danger)}
+.blue{color:var(--color-text-info)}
+.amber{color:var(--color-text-warning)}
+.green{color:var(--color-text-success)}
+.purple{color:#7F77DD}
+.sec{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;justify-content:space-between}
+.bars{margin-bottom:1.5rem}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
+.bar-lbl{width:160px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.bar-track{flex:1;background:var(--color-background-secondary);border-radius:4px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.bar-val{width:90px;text-align:right;color:var(--color-text-primary);flex-shrink:0}
+.tbl-wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:1rem}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+th{background:var(--color-background-secondary);padding:8px 10px;text-align:left;font-weight:500;font-size:10px;color:var(--color-text-secondary);border-bottom:.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:.04em}
+th:last-child{text-align:right}
+td{padding:7px 10px;border-bottom:.5px solid var(--color-border-tertiary);color:var(--color-text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--color-background-secondary)}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500}
+.pv{background:var(--color-background-info);color:var(--color-text-info)}
+.pp{background:var(--color-background-warning);color:var(--color-text-warning)}
+.pe{background:var(--color-background-success);color:var(--color-text-success)}
+.px{background:var(--color-background-danger);color:var(--color-text-danger)}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;background:var(--color-background-secondary);border-top:.5px solid var(--color-border-tertiary);font-size:12px}
+.srow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.srow input,.srow select{font-size:12px;flex:1;min-width:140px}
+.neg{color:var(--color-text-success)}
+.col-d{width:80px}.col-desc{}.col-p{width:80px}.col-t{width:85px}.col-v{width:100px}
+</style>
+
+<div class="wrap">
+  <div class="ttl">Fatura Bradesco</div>
+  <div class="sub">Raissa de Sousa Delmoro · Visa Infinite Prime · Venc. 10/05/2026</div>
+
+  <div class="grid" id="cards">
+    <div class="card on" onclick="filt('all',0)">
+      <div class="clbl">Total da fatura</div>
+      <div class="cval red">R$ 13.902,67</div>
+      <div class="csub">venc. 10/05/2026</div>
+    </div>
+    <div class="card" onclick="filt('vista',1)">
+      <div class="clbl">À vista (pago)</div>
+      <div class="cval blue" id="v-vista">—</div>
+      <div class="csub" id="s-vista">lançamentos</div>
+    </div>
+    <div class="card" onclick="filt('parc_mes',2)">
+      <div class="clbl">Parcelado este mês</div>
+      <div class="cval amber" id="v-parcmes">—</div>
+      <div class="csub" id="s-parcmes">parcelas cobradas</div>
+    </div>
+    <div class="card" onclick="filt('parc_fut',3)">
+      <div class="clbl">Parcelado futuro</div>
+      <div class="cval purple" id="v-parcfut">R$ 14.202,09</div>
+      <div class="csub">comprometido</div>
+    </div>
+    <div class="card" onclick="filt('estorno',4)">
+      <div class="clbl">Estornos</div>
+      <div class="cval green" id="v-est">—</div>
+      <div class="csub" id="s-est">devoluções</div>
+    </div>
+  </div>
+
+  <div class="sec"><span>Gastos por categoria</span></div>
+  <div class="bars" id="bars"></div>
+
+  <div class="sec"><span id="tbl-ttl">Todos os lançamentos</span><span id="tbl-cnt" style="color:var(--color-text-tertiary)"></span></div>
+  <div class="srow">
+    <input type="text" id="qry" placeholder="Buscar..." oninput="render()">
+    <select id="tpf" onchange="render()">
+      <option value="">Todos os tipos</option>
+      <option value="vista">À vista</option>
+      <option value="parc">Parcelado</option>
+      <option value="estorno">Estorno</option>
+      <option value="cambio">Câmbio</option>
+    </select>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="col-d">Data</th>
+        <th class="col-desc">Descrição</th>
+        <th class="col-p">Parcelas</th>
+        <th class="col-t">Tipo</th>
+        <th class="col-v">Valor</th>
+      </tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+    <div class="foot"><span style="color:var(--color-text-secondary)">Total filtrado</span><strong id="ftot">—</strong></div>
+  </div>
+</div>
+
+<script>
+// [data, desc, parcelas, tipo(vista/parc/estorno/cambio), valor]
+const D=[
+["25/06/25","MERCADOPAGO*MALAVAZI","7/12","parc",663.33],
+["11/09/25","JM DRA JOYCE MICH","5/10","parc",182.33],
+["11/09/25","MAGALU FL 568","5/10","parc",246.40],
+["01/11/25","JF PNEUS","2/6","parc",237.09],
+["25/01/26","MERCADOLIVRE*MERCADO","1/6","parc",179.92],
+["29/11/25","E AGENCIAS","5/6","parc",1472.87],
+["02/03/26","MP*VISAOPRODUCOES","2/5","parc",275.00],
+["04/03/26","FLAVIASEGALA","-","vista",125.00],
+["04/03/26","PG *HUTZ","2/3","parc",360.00],
+["05/03/26","MERCADOLIVRE*8PRODUT","2/3","parc",194.33],
+["06/03/26","MP*8PRODUTOS","1/10","parc",135.54],
+["07/03/26","EC *MERCADOLIVRE","2/6","parc",152.49],
+["07/03/26","EC *MERCADOLIVRE","2/6","parc",44.95],
+["08/03/26","MERCADOLIVRE*MERCADO","2/4","parc",38.47],
+["08/03/26","MERCADOLIVRE*MERCADO","2/4","parc",169.14],
+["09/03/26","MERCADOLIVRE*VPSOM","2/3","parc",138.68],
+["09/03/26","MP*MERCADOLIVRE","1/10","parc",97.90],
+["09/03/26","MERCADOLIVRE*MERCADO","2/2","parc",71.25],
+["10/03/26","MERCADOLIVRE*VILLARM","2/2","parc",69.90],
+["10/03/26","MERCADOLIVRE*MERCADO","2/2","parc",79.60],
+["10/03/26","COPAFER COMERCIAL","2/2","parc",135.80],
+["12/03/26","MERCADOLIVRE*MERCADO","2/2","parc",77.37],
+["13/03/26","MP*ARMAZEMDASESP","1/10","parc",87.00],
+["14/03/26","MERCADOLIVRE*ARTBOX3","2/2","parc",25.44],
+["14/03/26","MERCADOLIVRE*FERRETT","2/3","parc",30.32],
+["14/03/26","MERCADOLIVRE*ARTBOX3","2/2","parc",25.44],
+["17/03/26","MERCADOLIVRE*MERCADO","2/2","parc",149.61],
+["18/03/26","MERCADOLIVRE*MERCADO","2/2","parc",57.18],
+["20/03/26","MERCADOLIVRE*THAPRES","2/2","parc",30.44],
+["21/03/26","MP*MERCADOLIVRE","1/10","parc",97.00],
+["22/03/26","MERCADOLIVRE*MERCADO","2/2","parc",300.34],
+["23/03/26","MERCADOLIVRE*LUTECPA","2/2","parc",22.50],
+["23/03/26","MP*RCKAUDIO","1/10","parc",246.90],
+["23/03/26","MERCADOLIVRE*NINAVIB","2/2","parc",26.40],
+["24/03/26","MERCADOLIVRE*MERCADO","2/2","parc",30.49],
+["25/03/26","MERCADOLIVRE*DEEPSOU","2/2","parc",89.85],
+["27/03/26","SUPER ABC","2/2","parc",108.41],
+["29/03/26","MERCADOLIVRE*CABOSSP","2/2","parc",106.91],
+["30/03/26","MP*MERCADOLIVRE","-","estorno",-485.00],
+["30/03/26","MP*PORTERIEREVESTIMENTOS","-","vista",214.20],
+["30/03/26","MP*PORTERIEREVESTIMENTOS","-","vista",69.65],
+["30/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",58.10],
+["30/03/26","MERCADOLIVRE*LUTECPARAFUS","-","estorno",-45.00],
+["30/03/26","MERCADOLIVRE*FRIOLAR","-","estorno",-42.39],
+["31/03/26","COOP","-","vista",121.53],
+["01/04/26","MERCADOLIVRE*AUTACK","-","vista",37.77],
+["01/04/26","LOJAS TOP LAR MAUA","-","vista",60.10],
+["01/04/26","MAUA TECIDOS","-","vista",31.60],
+["01/04/26","ASSAI ATACADISTA LJ16","-","vista",230.29],
+["01/04/26","MERCADOLIVRE*ARIZYMU","2/2","parc",62.00],
+["01/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",116.99],
+["01/04/26","ASSAI ATACADISTA","2/2","parc",65.40],
+["02/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",41.90],
+["02/04/26","SUPERMERCADO LOURENCIN","-","vista",32.43],
+["02/04/26","MERCADOLIVRE*SPEEDSALE","-","vista",76.51],
+["02/04/26","HORA DA FESTA","-","vista",51.10],
+["02/04/26","LUAN PEDROSA GONCALVES","-","vista",37.74],
+["02/04/26","CENTRO AUTOMOTIVO BAP","-","vista",111.86],
+["02/04/26","CB FOOD SERVICE","-","vista",55.27],
+["02/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",84.69],
+["02/04/26","MERCADOLIVRE*CABOSSP","-","estorno",-213.83],
+["02/04/26","AUTO P POLO PETROQUIMI","-","vista",53.68],
+["02/04/26","JIM.COM IGOR ARA","-","vista",12.00],
+["03/04/26","FRANCISCA EDINEIDE BAR","-","vista",144.84],
+["03/04/26","FRANCISCA EDINEIDE BAR","-","vista",29.99],
+["03/04/26","IFD*PET SHOP DR HATO L","-","vista",80.38],
+["04/04/26","IFD*PANIFICADORA E CON","-","vista",50.88],
+["04/04/26","GOOGLE ONE","-","vista",96.99],
+["04/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",186.65],
+["04/04/26","APPLECOMBILL","-","vista",29.90],
+["04/04/26","PIA BURGUER E PIZZA","-","vista",132.00],
+["04/04/26","APPLECOMBILL","-","vista",53.90],
+["05/04/26","UBER* TRIP","-","vista",28.03],
+["05/04/26","MERCADO PAGO*CIRI","-","vista",28.43],
+["05/04/26","MERCADO PAGO*DELF","-","vista",100.31],
+["05/04/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+["05/04/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+["05/04/26","IFD*COOP COOPERATIVA D","-","vista",82.68],
+["05/04/26","COSTASILVA","-","vista",100.38],
+["05/04/26","UBER* TRIP","-","vista",11.93],
+["06/04/26","DL*UBERRIDES","-","vista",21.36],
+["06/04/26","NETFLIX ENTRETENIMENTO","-","vista",57.80],
+["07/04/26","UBER * PENDING","-","vista",29.01],
+["07/04/26","MERCADOLIVRE*FABIOFALCAO","-","vista",87.98],
+["07/04/26","APPLECOMBILL","-","vista",35.00],
+["07/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",47.70],
+["07/04/26","APPLECOMBILL","-","vista",109.90],
+["09/04/26","APPLECOMBILL","-","vista",35.00],
+["09/04/26","ATACADAO 676 SA","-","vista",254.68],
+["09/04/26","CASA DE CARNES VENHA","-","vista",53.61],
+["10/04/26","APPLECOMBILL","-","vista",128.79],
+["10/04/26","NETFLIX.COM","-","vista",59.90],
+["11/04/26","APPLECOMBILL","-","vista",32.90],
+["11/04/26","LA DONNA PIZZA","-","vista",62.00],
+["11/04/26","MP*GENDO","1/12","parc",34.33],
+["11/04/26","IG*GENDO","1/12","parc",30.00],
+["11/04/26","DISTROKID EXTRAS USD12","-","cambio",63.48],
+["12/04/26","IFD*LUIS PAUL","-","vista",94.47],
+["12/04/26","DL*UBERRIDES","-","vista",15.54],
+["13/04/26","MERCADOLIVRE*PAILE","-","vista",95.61],
+["13/04/26","DL*UBERRIDES","-","vista",31.98],
+["13/04/26","LOJAS TOP LAR MAUA","-","vista",44.70],
+["13/04/26","AUTO POSTO NELU","-","vista",95.06],
+["13/04/26","CASA DE CARNES VENHA","-","vista",115.98],
+["13/04/26","APPLE.COM/BILL.","-","vista",53.90],
+["13/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",121.15],
+["13/04/26","MMC EMPORIO DO REAL UT","-","vista",72.47],
+["14/04/26","IFD*IFOOD","-","vista",111.88],
+["14/04/26","COSTASILVA","-","vista",51.62],
+["15/04/26","MP*ABBASREPRESEN","-","vista",196.25],
+["16/04/26","R A LOPES ACOUGUE","-","vista",127.06],
+["16/04/26","IFD*COBASI COMERCIO DE","-","vista",117.88],
+["16/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
+["16/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",47.02],
+["16/04/26","APPLE.COM/BILL.","-","vista",66.90],
+["16/04/26","IFD*PANIFICADORA E CON","-","vista",43.88],
+["16/04/26","CHAVEIRO NEPAL","-","vista",24.00],
+["17/04/26","UBER * PENDING","-","vista",41.94],
+["17/04/26","UBER * PENDING","-","vista",24.96],
+["17/04/26","PANIFICADORA MG","-","vista",26.00],
+["17/04/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+["17/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",67.92],
+["18/04/26","COSTASILVA","-","vista",93.30],
+["18/04/26","MP*ABBASREPRESEN","-","vista",79.41],
+["18/04/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+["18/04/26","LA DONNA PIZZA","-","vista",61.00],
+["19/04/26","HITAMAX","-","vista",164.75],
+["19/04/26","POSTODE","-","vista",61.40],
+["20/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
+["20/04/26","SUPERMERCADO LOURENCIN","-","vista",153.23],
+["20/04/26","SUPERMERCADO LOURENCIN","-","vista",97.12],
+["20/04/26","COSTASILVA","-","vista",71.70],
+["21/04/26","MERCADOLIVRE*RCKAUDIO","-","vista",72.00],
+["21/04/26","MERCADOLIVRE*APOLO","-","vista",86.94],
+["21/04/26","PANIFICADORA MG","-","vista",42.00],
+["21/04/26","UBER * PENDING","-","vista",12.99],
+["22/04/26","JIM.COM IGOR ARA","-","vista",70.00],
+["22/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
+["22/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
+["23/04/26","APPLE.COM/BILL.","-","vista",79.90],
+["24/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",62.69],
+["24/04/26","IFD*IFOOD","-","vista",150.80],
+["24/04/26","MP*CLARO","-","vista",100.00],
+["24/04/26","KITTL.COM USD120","-","cambio",120.00],
+["25/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",20.90],
+["25/04/26","EXPRESSO 1901","-","estorno",-201.30],
+["25/04/26","EXPRESSO 1901","-","vista",201.30],
+["25/04/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",87.23],
+["25/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",99.27],
+["27/04/26","UBER * PENDING","-","vista",14.94],
+["27/04/26","DL *UBERRIDES","-","vista",26.25],
+["27/04/26","ANUIDADE DIFERENCIADA","6/12","parc",100.00],
+["30/03/26","TOTALPASS","-","vista",89.90],
+["17/04/26","APPLE.COM/BILL.","-","vista",19.90],
+["18/04/26","APPLE.COM/BILL.","-","vista",9.99],
+];
+
+const brl=v=>'R$ '+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+// Calc summaries
+let sv=0,nv=0,sp=0,np=0,se=0,ne=0;
+D.forEach(r=>{
+  const t=r[3],v=r[4];
+  if(t==='vista'||t==='cambio'){sv+=v;nv++;}
+  else if(t==='parc'){sp+=v;np++;}
+  else if(t==='estorno'){se+=Math.abs(v);ne++;}
+});
+document.getElementById('v-vista').textContent=brl(sv);
+document.getElementById('s-vista').textContent=nv+' lançamentos';
+document.getElementById('v-parcmes').textContent=brl(sp);
+document.getElementById('s-parcmes').textContent=np+' parcelas cobradas';
+document.getElementById('v-est').textContent=brl(se);
+document.getElementById('s-est').textContent=ne+' devoluções';
+
+// Bar chart por categoria
+const cats={};
+const CM=[
+  [/MERCADOLIVRE|MERCADO PAGO|MP\*|EC \*/,'Mercado Livre / Pago'],
+  [/UBER|DL\*UBER|DL \*UBER/,'Uber'],
+  [/APPLE|NETFLIX|GOOGLE|DISTROKID|KITTL|GENDO/,'Streaming & Apps'],
+  [/ASSAI|ATACADAO|SUPER ABC|COOP|LOURENCIN/,'Supermercado'],
+  [/IFOOD|PIA BURGUER|FRANCISCA|CB FOOD|LA DONNA|PANIFICADORA|COSTASILVA/,'Alimentação'],
+  [/PORTERIE/,'Revestimentos'],
+  [/PNEUS|AUTO|POSTO|CENTRO AUTO|CONCESSIONARIA|EXPRESSO/,'Transporte/Auto'],
+];
+D.forEach(r=>{
+  if(r[4]<0)return;
+  let c='Outros';
+  for(const[re,n]of CM){if(re.test(r[1])){c=n;break;}}
+  cats[c]=(cats[c]||0)+r[4];
+});
+const sorted=Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+const maxV=sorted[0][1];
+const barColors=['#378ADD','#1D9E75','#BA7517','#D4537E','#7F77DD','#D85A30','#639922','#888780'];
+const barsEl=document.getElementById('bars');
+sorted.forEach(([lbl,val],i)=>{
+  const pct=Math.round(val/maxV*100);
+  barsEl.innerHTML+=`<div class="bar-row">
+    <div class="bar-lbl" title="${lbl}">${lbl}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${barColors[i%barColors.length]}"></div></div>
+    <div class="bar-val">${brl(val)}</div>
+  </div>`;
+});
+
+// Table
+let activeF='all';
+function filt(f,idx){
+  activeF=f;
+  document.querySelectorAll('.card').forEach((c,i)=>c.classList.toggle('on',i===idx));
+  const tpf=document.getElementById('tpf');
+  const map={all:'',vista:'vista',parc_mes:'parc',parc_fut:'',estorno:'estorno'};
+  tpf.value=map[f]||'';
+  document.getElementById('qry').value='';
+  render();
+}
+function render(){
+  const q=document.getElementById('qry').value.toLowerCase();
+  const tp=document.getElementById('tpf').value;
+  const rows=D.filter(r=>{
+    if(q&&!r[1].toLowerCase().includes(q))return false;
+    if(tp&&r[3]!==tp)return false;
+    return true;
+  });
+  const tb=document.getElementById('tb');
+  tb.innerHTML='';
+  let tot=0;
+  rows.forEach(r=>{
+    const[dt,desc,parc,tipo,val]=r;
+    tot+=val;
+    const pc=tipo==='vista'?'pv':tipo==='parc'?'pp':tipo==='estorno'?'pe':'px';
+    const lbl=tipo==='vista'?'À vista':tipo==='parc'?'Parcelado':tipo==='estorno'?'Estorno':'Câmbio';
+    const neg=val<0;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:var(--color-text-tertiary)">${dt}</td><td title="${desc}">${desc}</td><td style="color:var(--color-text-tertiary)">${parc}</td><td><span class="pill ${pc}">${lbl}</span></td><td class="${neg?'neg':''}">${neg?'− ':''}${brl(val)}</td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById('ftot').textContent=brl(tot);
+  document.getElementById('tbl-cnt').textContent=rows.length+' itens';
+  const titles={all:'Todos os lançamentos',vista:'À vista',parc_mes:'Parcelados cobrados este mês',parc_fut:'Compromisso futuro',estorno:'Estornos / Créditos'};
+  document.getElementById('tbl-ttl').textContent=titles[activeF]||'Lançamentos';
+}
+render();
+</script>
