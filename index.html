@@ -76,6 +76,13 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .parc-bar-fill.quit{background:#2E7D32}
 .parc-vals{display:flex;justify-content:space-between;font-size:11px}
 .parc-vals .pago{color:#2E7D32}.parc-vals .falta{color:#E65100;font-weight:600}
+.parc-detail{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--gray2)}
+.parc-detail-item{text-align:center}
+.parc-detail-item .pd-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px}
+.parc-detail-item .pd-val{font-size:12px;font-weight:600;color:var(--text)}
+.parc-detail-item .pd-val.red{color:#CC092F}
+.parc-detail-item .pd-val.orange{color:#E65100}
+.parc-detail-item .pd-val.green{color:#2E7D32}
 .parc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
 .ps-card{background:var(--white);border-radius:10px;padding:14px 16px;border:1px solid var(--gray2)}
 .ps-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
@@ -496,9 +503,19 @@ function renderParcGrid(items){
           <span class="parc-status ${statusCls}">${statusTxt}</span>
         </div>
         <div class="parc-bar-track"><div class="parc-bar-fill ${i.quit?'quit':''}" style="width:${pct}%"></div></div>
-        <div class="parc-vals">
-          <span class="pago">Pago: ${brl(i.valParc*i.atual)}</span>
-          ${i.quit?'<span style="color:#2E7D32;font-weight:600">Quitado 🎉</span>':'<span class="falta">Falta: '+brl(i.valFut)+'</span>'}
+        <div class="parc-detail">
+          <div class="parc-detail-item">
+            <div class="pd-lbl">Parcelas restantes</div>
+            <div class="pd-val ${i.quit?'green':'orange'}">${i.quit?'0':i.rest+'x'}</div>
+          </div>
+          <div class="parc-detail-item">
+            <div class="pd-lbl">Valor por parcela</div>
+            <div class="pd-val">${brl(i.valParc)}</div>
+          </div>
+          <div class="parc-detail-item">
+            <div class="pd-lbl">Total futuro</div>
+            <div class="pd-val ${i.quit?'green':'red'}">${i.quit?'Quitado 🎉':brl(i.valFut)}</div>
+          </div>
         </div>
       </div>`;
   });
