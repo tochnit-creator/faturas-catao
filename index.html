@@ -60,7 +60,129 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .foot strong{color:var(--red);font-weight:600}
 .neg{color:#2E7D32}
 .col-d{width:78px}.col-p{width:78px}.col-t{width:84px}.col-v{width:105px}
+/* planejamento */
+.plan-hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.plan-hero-card{background:var(--white);border-radius:10px;padding:16px;border:1px solid var(--gray2);text-align:center}
+.ph-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.ph-val{font-size:22px;font-weight:700}
+.ph-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.plan-alert{border-radius:10px;padding:13px 16px;margin-bottom:14px;font-size:13px;display:flex;align-items:flex-start;gap:10px}
+.plan-alert.danger{background:#fff0f2;border:1px solid #ffccd4;color:#9e0020}
+.plan-alert.warn{background:#FFF8E1;border:1px solid #FFE082;color:#795548}
+.plan-alert.ok{background:#E8F5E9;border:1px solid #A5D6A7;color:#1B5E20}
+.plan-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.month-plan-grid{display:flex;flex-direction:column;gap:10px}
+.mp-card{background:var(--white);border-radius:10px;border:1px solid var(--gray2);overflow:hidden}
+.mp-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;gap:8px}
+.mp-header:hover{background:#fafafa}
+.mp-month{font-size:14px;font-weight:600;width:65px;flex-shrink:0}
+.mp-bar-wrap{flex:1;background:var(--gray);border-radius:4px;height:10px;overflow:hidden}
+.mp-bar{height:100%;border-radius:4px;transition:width .5s}
+.mp-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mp-pct{font-size:11px;font-weight:600;width:32px;text-align:right}
+.mp-total{font-size:13px;font-weight:600;width:100px;text-align:right}
+.mp-sobra{font-size:11px;color:var(--muted);width:110px;text-align:right}
+.mp-chevron{font-size:11px;color:var(--muted);transition:transform .2s}
+.mp-chevron.open{transform:rotate(180deg)}
+.mp-body{display:none;border-top:1px solid var(--gray2);padding:0}
+.mp-body.open{display:block}
+.mp-body table{width:100%;font-size:12px;border-collapse:collapse}
+.mp-body td{padding:7px 16px;border-bottom:1px solid var(--gray);color:var(--text)}
+.mp-body tr:last-child td{border-bottom:none}
+.mp-body td:last-child{text-align:right;font-weight:500;color:#E65100}
+.mp-body tr:hover td{background:#fafafa}
+.mp-footer{padding:8px 16px;background:var(--gray);display:flex;justify-content:space-between;font-size:12px}
+.renda-input-wrap{background:var(--white);border-radius:10px;border:1px solid var(--gray2);padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.renda-input-wrap label{font-size:12px;color:var(--muted);white-space:nowrap}
+.renda-input-wrap input{border:1px solid var(--gray2);border-radius:7px;padding:6px 10px;font-size:14px;font-weight:600;width:140px;outline:none;color:var(--text)}
+.renda-input-wrap input:focus{border-color:var(--red)}
+.renda-input-wrap span{font-size:11px;color:var(--muted)}
 /* parcelas */
+/* ══ PLANEJAMENTO ══ */
+.plan-hero{background:linear-gradient(135deg,#CC092F 0%,#9e0020 100%);border-radius:12px;padding:24px;margin-bottom:14px;color:white}
+.plan-hero-ttl{font-size:18px;font-weight:600;margin-bottom:4px}
+.plan-hero-sub{font-size:12px;opacity:.8}
+.plan-hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:16px}
+.plan-hero-card{background:rgba(255,255,255,.15);border-radius:8px;padding:12px}
+.phc-lbl{font-size:10px;opacity:.8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.phc-val{font-size:17px;font-weight:600}
+.phc-sub{font-size:10px;opacity:.7;margin-top:2px}
+.plan-alert{border-radius:10px;padding:12px 16px;font-size:12px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px}
+.plan-alert.danger{background:#fff0f2;border:1px solid #ffb3be;color:#9e0020}
+.plan-alert.warn{background:#FFF8E1;border:1px solid #FFE082;color:#7a5800}
+.plan-alert.ok{background:#E8F5E9;border:1px solid #A5D6A7;color:#1B5E20}
+.plan-alert-icon{font-size:18px;flex-shrink:0;margin-top:-1px}
+.month-plan-grid{display:grid;gap:10px;margin-bottom:14px}
+.mp-card{background:var(--white);border-radius:12px;border:1px solid var(--gray2);overflow:hidden}
+.mp-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;user-select:none}
+.mp-header:hover{background:#fafafa}
+.mp-month{font-size:14px;font-weight:600}
+.mp-right{display:flex;align-items:center;gap:10px}
+.mp-bar-mini{width:80px;background:var(--gray2);border-radius:20px;height:6px;overflow:hidden}
+.mp-bar-mini-fill{height:100%;border-radius:20px}
+.mp-pct{font-size:12px;font-weight:600;width:38px;text-align:right}
+.mp-total{font-size:13px;font-weight:500}
+.mp-chevron{font-size:12px;color:var(--muted);transition:transform .2s}
+.mp-chevron.open{transform:rotate(180deg)}
+.mp-body{display:none;border-top:1px solid var(--gray2)}
+.mp-body.open{display:block}
+.mp-summary{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--gray2)}
+.mp-sum-item{padding:12px 16px;text-align:center}
+.mp-sum-item:not(:last-child){border-right:1px solid var(--gray2)}
+.mp-sum-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.mp-sum-val{font-size:15px;font-weight:600}
+.mp-items{padding:12px 16px}
+.mp-item-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--gray);font-size:12px}
+.mp-item-row:last-child{border-bottom:none}
+.mp-item-desc{color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
+.mp-item-val{font-weight:500;flex-shrink:0}
+.mp-rec{padding:10px 16px;background:#f9f9f9;border-top:1px solid var(--gray2);font-size:12px;color:var(--muted);font-style:italic}
+.budget-wrap{background:var(--white);border-radius:12px;padding:20px;margin-bottom:14px;border:1px solid var(--gray2)}
+.budget-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px}
+.budget-row:last-child{margin-bottom:0}
+.budget-label{width:160px;flex-shrink:0;color:var(--muted)}
+.budget-bar-track{flex:1;background:var(--gray);border-radius:4px;height:10px;overflow:hidden}
+.budget-bar-fill{height:100%;border-radius:4px}
+.budget-val{width:90px;text-align:right;font-weight:500;flex-shrink:0}
+.salary-input-wrap{background:var(--white);border-radius:12px;padding:16px 20px;margin-bottom:14px;border:1px solid var(--gray2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.salary-input-wrap label{font-size:13px;color:var(--muted);flex-shrink:0}
+.salary-input-wrap input{border:1.5px solid var(--gray2);border-radius:7px;padding:7px 12px;font-size:14px;font-weight:500;width:150px;outline:none;transition:border-color .15s}
+.salary-input-wrap input:focus{border-color:var(--red)}
+.salary-input-wrap button{background:var(--red);color:white;border:none;border-radius:7px;padding:8px 18px;font-size:13px;cursor:pointer;font-weight:500}
+/* ══ GUIA ══ */
+.guia-hero{background:linear-gradient(135deg,#1a1a2e 0%,#CC092F 100%);border-radius:12px;padding:24px;margin-bottom:14px;color:white;text-align:center}
+.guia-hero-ttl{font-size:20px;font-weight:700;margin-bottom:6px}
+.guia-hero-sub{font-size:13px;opacity:.8;line-height:1.5}
+.guia-steps{display:grid;gap:12px;margin-bottom:14px}
+.guia-step{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:0;overflow:hidden}
+.guia-step-header{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--gray)}
+.guia-step-num{width:32px;height:32px;border-radius:50%;background:var(--red);color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.guia-step-ttl{font-size:14px;font-weight:600;color:var(--text)}
+.guia-step-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.guia-step-body{padding:16px 20px}
+.guia-step-body p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.guia-step-body p:last-child{margin-bottom:0}
+.guia-chip{display:inline-block;background:var(--gray);border:1px solid var(--gray2);border-radius:6px;padding:2px 8px;font-size:11px;font-family:monospace;color:var(--text);margin:2px}
+.guia-chip.red{background:#fff0f2;border-color:#ffb3be;color:#9e0020}
+.guia-chip.green{background:#E8F5E9;border-color:#A5D6A7;color:#1B5E20}
+.guia-chip.blue{background:#E3F0FF;border-color:#90CAF9;color:#1565C0}
+.guia-tip{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5800;margin-top:10px;line-height:1.5}
+.guia-divider{height:1px;background:var(--gray2);margin:6px 0}
+.guia-copy-box{background:#1a1a2e;border-radius:8px;padding:14px 16px;font-size:12px;color:#e0e0e0;font-family:monospace;line-height:1.8;margin-top:10px;position:relative}
+.guia-copy-box .copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.15);border:none;color:white;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
+.guia-copy-box .copy-btn:hover{background:rgba(255,255,255,.25)}
+.guia-calendar{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:20px;margin-bottom:14px}
+.cal-row{display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid var(--gray)}
+.cal-row:last-child{border-bottom:none}
+.cal-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.cal-content{flex:1}
+.cal-when{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px}
+.cal-what{font-size:13px;color:var(--text);line-height:1.4}
+.guia-checklist{list-style:none;margin-top:10px}
+.guia-checklist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);padding:4px 0;line-height:1.4}
+.guia-checklist li::before{content:'☐';color:var(--red);font-size:14px;flex-shrink:0}
+
+
 .parc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .parc-item{background:var(--white);border:1px solid var(--gray2);border-radius:10px;padding:14px;position:relative;overflow:hidden}
 .parc-item.quit{opacity:.55}
@@ -115,7 +237,10 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
   <div class="tabs-wrap" id="tabs">
     <div class="tab active"    onclick="showTab('overview')">📊 Visão geral</div>
     <div class="tab"           onclick="showTab('parcelas')">📅 Parcelas futuras</div>
+    <div class="tab"           onclick="showTab('abr26')">Abr/26</div>
     <div class="tab"           onclick="showTab('mai26')">Mai/26</div>
+    <div class="tab"           onclick="showTab('planejamento')">💡 Planejamento</div>
+    <div class="tab"           onclick="showTab('guia')">📖 Guia</div>
     <div class="tab aberto"    onclick="showTab('aberto')">Em aberto ⚡</div>
   </div>
 
@@ -128,7 +253,34 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
     </div>
   </div>
 
-  <!-- ══ PARCELAS FUTURAS ══ -->
+  <!-- ══ PLANEJAMENTO ══ -->
+  <div class="view" id="tab-planejamento">
+    <div class="salary-input-wrap">
+      <label>Seu salário mensal:</label>
+      <input type="number" id="salary-input" value="9000" min="1000" step="500">
+      <button onclick="updateSalary()">Atualizar</button>
+      <span style="font-size:12px;color:var(--muted)" id="salary-note"></span>
+    </div>
+    <div class="plan-hero">
+      <div class="plan-hero-ttl">💡 Seu planejamento financeiro</div>
+      <div class="plan-hero-sub">Baseado nas suas parcelas ativas e salário de <span id="ph-salary">R$ 9.000</span>/mês</div>
+      <div class="plan-hero-grid">
+        <div class="plan-hero-card"><div class="phc-lbl">Salário</div><div class="phc-val" id="ph-sal-val">R$ 9.000</div><div class="phc-sub">por mês</div></div>
+        <div class="plan-hero-card"><div class="phc-lbl">Mês mais pesado</div><div class="phc-val">Jun/26</div><div class="phc-sub">57,9% do salário</div></div>
+        <div class="plan-hero-card"><div class="phc-lbl">Total dívida atual</div><div class="phc-val">R$ 32.724</div><div class="phc-sub">fatura + parcelas futuras</div></div>
+        <div class="plan-hero-card"><div class="phc-lbl">Livre em</div><div class="phc-val">Mai/27</div><div class="phc-sub">sem parcelas fixas</div></div>
+      </div>
+    </div>
+    <div id="plan-alerts"></div>
+    <div class="section">
+      <div class="sec-ttl"><span>Orçamento mensal estimado</span></div>
+      <div id="budget-bars"></div>
+    </div>
+    <div class="section">
+      <div class="sec-ttl"><span id="plan-sub">Mês a mês — parcelas comprometidas</span></div>
+      <div class="month-plan-grid" id="month-plan-grid"></div>
+    </div>
+  </div>
   <div class="view" id="tab-parcelas">
     <div class="parc-summary" id="parc-summary"></div>
     <div class="section">
@@ -141,6 +293,33 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
         </span>
       </div>
       <div class="parc-grid" id="parc-grid"></div>
+    </div>
+  </div>
+
+  <!-- ══ ABR/26 ══ -->
+  <div class="view" id="tab-abr26">
+    <div class="cards" id="cards-abr26">
+      <div class="card on" onclick="filt('abr26','all',0)"><div class="clbl">Total da fatura</div><div class="cval main" style="color:#1565C0">R$ 17.261,85</div><div class="csub">venc. 10/04/2026</div></div>
+      <div class="card"    onclick="filt('abr26','vista',1)"><div class="clbl">À vista</div><div class="cval c-vista" id="abr26-v-vista">—</div><div class="csub" id="abr26-s-vista">—</div></div>
+      <div class="card"    onclick="filt('abr26','parc',2)"><div class="clbl">Parcelado este mês</div><div class="cval c-parc" id="abr26-v-parc">—</div><div class="csub" id="abr26-s-parc">—</div></div>
+      <div class="card"    onclick="filt('abr26','fut',3)"><div class="clbl">Parcelado futuro</div><div class="cval c-fut">R$ 20.049,68</div><div class="csub">comprometido</div></div>
+      <div class="card"    onclick="filt('abr26','estorno',4)"><div class="clbl">Estornos</div><div class="cval c-est" id="abr26-v-est">—</div><div class="csub" id="abr26-s-est">—</div></div>
+    </div>
+    <div class="section"><div class="sec-ttl"><span>Gastos por categoria</span></div><div id="bars-abr26"></div></div>
+    <div class="section">
+      <div class="sec-ttl"><span id="ttl-abr26">Todos os lançamentos</span><span id="cnt-abr26"></span></div>
+      <div class="srow">
+        <input type="text" id="q-abr26" placeholder="Buscar..." oninput="renderTable('abr26')">
+        <select id="tp-abr26" onchange="renderTable('abr26')">
+          <option value="">Todos os tipos</option><option value="vista">À vista</option>
+          <option value="parc">Parcelado</option><option value="estorno">Estorno</option><option value="cambio">Câmbio</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table><thead><tr><th class="col-d">Data</th><th>Descrição</th><th class="col-p">Parcelas</th><th class="col-t">Tipo</th><th class="col-v">Valor</th></tr></thead>
+        <tbody id="tb-abr26"></tbody></table>
+        <div class="foot"><span>Total filtrado</span><strong id="ft-abr26">—</strong></div>
+      </div>
     </div>
   </div>
 
@@ -195,6 +374,116 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
       </div>
     </div>
   </div>
+
+  <!-- ══ GUIA ══ -->
+  <div class="view" id="tab-guia">
+
+    <div class="guia-hero">
+      <div style="font-size:36px;margin-bottom:10px">📖</div>
+      <div class="guia-hero-ttl">Guia de atualização mensal</div>
+      <div class="guia-hero-sub">Tudo o que você precisa mandar para o Claude<br>para manter seu histórico de faturas sempre atualizado</div>
+    </div>
+
+    <div class="section">
+      <div class="sec-ttl"><span>✅ Checklist mensal</span></div>
+      <ul class="guia-checklist">
+        <li>Baixei o <strong>PDF da fatura fechada</strong> no app Bradesco (quando fechar o ciclo)</li>
+        <li>Baixei o <strong>PDF do extrato em aberto</strong> para ver lançamentos recentes</li>
+        <li>Tenho o arquivo <strong>faturas_bradesco.html</strong> atual (do GitHub)</li>
+        <li>Abri uma nova conversa com o Claude em <strong>claude.ai</strong></li>
+        <li>Mandei os 3 arquivos juntos com a mensagem de atualização</li>
+        <li>Fiz o upload do HTML novo no GitHub substituindo o antigo</li>
+      </ul>
+    </div>
+
+    <div class="guia-steps">
+
+      <div class="guia-step">
+        <div class="guia-step-header">
+          <div class="guia-step-num">1</div>
+          <div><div class="guia-step-ttl">Baixe os PDFs no app Bradesco</div><div class="guia-step-sub">Faça isso após o fechamento da fatura (geralmente dia 28)</div></div>
+        </div>
+        <div class="guia-step-body">
+          <p>No app Bradesco acesse <strong>Cartões → Fatura → Ver fatura completa</strong> e salve o PDF. Depois vá em <strong>Extrato em aberto</strong> e salve também.</p>
+          <p><span class="guia-chip red">Fatura fechada</span> ex: <span class="guia-chip">Bradesco_Fatura_Jun2026.pdf</span><br>
+          <span class="guia-chip blue">Extrato aberto</span> ex: <span class="guia-chip">Bradesco_ExtratoFaturaAberta_28-06-2026.pdf</span></p>
+          <div class="guia-tip">💡 Baixe sempre os dois: a fatura fechada tem os dados definitivos, o extrato aberto mostra o que já acumulou para o próximo ciclo.</div>
+        </div>
+      </div>
+
+      <div class="guia-step">
+        <div class="guia-step-header">
+          <div class="guia-step-num">2</div>
+          <div><div class="guia-step-ttl">Pegue o arquivo HTML atual do GitHub</div><div class="guia-step-sub">É a memória do sistema — sem ele o histórico se perde</div></div>
+        </div>
+        <div class="guia-step-body">
+          <p>Baixe o arquivo <span class="guia-chip">faturas_bradesco.html</span> do seu repositório GitHub. Ele contém todos os meses anteriores, parcelas e planejamento.</p>
+          <div class="guia-tip">⚠️ Sempre pegue a versão mais recente do GitHub, nunca uma versão antiga salva no computador.</div>
+        </div>
+      </div>
+
+      <div class="guia-step">
+        <div class="guia-step-header">
+          <div class="guia-step-num">3</div>
+          <div><div class="guia-step-ttl">Abra o Claude e mande os 3 arquivos</div><div class="guia-step-sub">Nova conversa + anexos + mensagem pronta abaixo</div></div>
+        </div>
+        <div class="guia-step-body">
+          <p>Acesse <strong>claude.ai</strong>, inicie uma nova conversa, anexe os 3 arquivos e use esta mensagem:</p>
+          <div class="guia-copy-box" id="copy-msg">
+Oi! Segue a fatura fechada de [MÊS/ANO],
+o extrato em aberto de [DATA] e o HTML atual.
+
+Por favor:
+1. Adicione a aba do novo mês com os lançamentos
+2. Atualize a aba "Em aberto" com os novos lançamentos
+3. Recalcule o planejamento com as parcelas atualizadas
+4. Mantenha o histórico dos meses anteriores
+
+Meu salário continua R$ 9.000/mês.
+            <button class="copy-btn" onclick="copyMsg()">📋 Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="guia-step">
+        <div class="guia-step-header">
+          <div class="guia-step-num">4</div>
+          <div><div class="guia-step-ttl">Suba o HTML novo no GitHub</div><div class="guia-step-sub">Substitua o arquivo antigo pelo novo — leva 1 minuto</div></div>
+        </div>
+        <div class="guia-step-body">
+          <p><span class="guia-chip green">①</span> Acesse seu repositório <span class="guia-chip">faturas-catao</span> no GitHub<br>
+          <span class="guia-chip green">②</span> Clique no arquivo <span class="guia-chip">faturas_bradesco.html</span><br>
+          <span class="guia-chip green">③</span> Clique no ícone de lápis ✏️ → <strong>Upload file</strong><br>
+          <span class="guia-chip green">④</span> Arraste o arquivo novo → <strong>Commit changes</strong></p>
+          <div class="guia-tip">✅ Em 1-2 minutos o GitHub Pages atualiza e o link já mostra o histórico completo.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <div class="sec-ttl"><span>📅 Quando fazer cada coisa</span></div>
+      <div>
+        <div class="cal-row"><div class="cal-dot" style="background:#CC092F"></div><div class="cal-content"><div class="cal-when">Todo dia 28</div><div class="cal-what">Fatura fecha. Baixe o PDF da fatura fechada e deixe separado.</div></div></div>
+        <div class="cal-row"><div class="cal-dot" style="background:#E65100"></div><div class="cal-content"><div class="cal-when">Todo dia 10</div><div class="cal-what">Vencimento. Pague o total — nunca o mínimo!</div></div></div>
+        <div class="cal-row"><div class="cal-dot" style="background:#1565C0"></div><div class="cal-content"><div class="cal-when">Qualquer dia</div><div class="cal-what">Baixe o extrato em aberto para ver lançamentos recentes.</div></div></div>
+        <div class="cal-row"><div class="cal-dot" style="background:#2E7D32"></div><div class="cal-content"><div class="cal-when">Uma vez por mês (sugestão: dia 1)</div><div class="cal-what">Mande os 3 arquivos para o Claude e atualize o GitHub. Menos de 5 minutos.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-ttl"><span>💬 Dicas importantes</span></div>
+      <ul class="guia-checklist">
+        <li><strong>Nunca pague o mínimo.</strong> Juros chegam a 16,99% a.m — a dívida dobra em meses.</li>
+        <li><strong>Junho é crítico.</strong> 57% do salário vai em parcelas. Evite novas compras parceladas até agosto.</li>
+        <li><strong>A partir de novembro</strong> as parcelas caem muito. Momento de guardar dinheiro.</li>
+        <li><strong>Sempre mande o HTML atual</strong> — sem ele o histórico se perde.</li>
+        <li><strong>Não precisa ser perfeito.</strong> Se esquecer um mês, manda depois que o Claude reconstrói.</li>
+      </ul>
+    </div>
+
+  </div>
+
 </div>
 
 <script>
@@ -360,7 +649,201 @@ const MESES = {
       ["18/04/26","APPLE.COM/BILL.","-","vista",9.99],
     ]
   },
-  aberto:{
+  abr26:{
+    label:'Abr/26',venc:'10/04/2026',total:17261.85,futuro:20049.68,color:'#1565C0',
+    rows:[
+      ["25/06/25","MERCADOPAGO*MALAVAZI","9/12","parc",663.33],
+      ["11/09/25","JM DRA JOYCE MICH","7/10","parc",182.33],
+      ["11/09/25","MAGALU FL 568","7/10","parc",246.40],
+      ["01/11/25","JF PNEUS","5/6","parc",237.09],
+      ["29/12/25","LOJAS RENNER FL 66","3/3","parc",136.56],
+      ["25/01/26","MERCADOLIVRE*MERCADO","3/6","parc",179.92],
+      ["27/01/26","MERCADOLIVRE*MERCADO","2/2","parc",63.06],
+      ["29/01/26","FINPET","2/2","parc",335.00],
+      ["05/02/26","MERCADOLIVRE*MERCADO","2/2","parc",100.90],
+      ["05/02/26","MERCADOLIVRE*MERCADO","2/2","parc",175.95],
+      ["06/02/26","MERCADOLIVRE*MERCADO","2/2","parc",24.03],
+      ["07/02/26","MERCADOLIVRE*MERCADO","2/2","parc",107.87],
+      ["08/02/26","MERCADOLIVRE*MERCADO","2/2","parc",238.73],
+      ["13/02/26","MP*BRUTUSCAR","4/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","2/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","5/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","6/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","7/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","8/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","9/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","10/10","parc",104.50],
+      ["13/02/26","MP*BRUTUSCAR","3/10","parc",104.50],
+      ["26/02/26","MERCADOLIVRE*EMPORIOGILUM","-","vista",67.86],
+      ["26/02/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",146.70],
+      ["26/02/26","COSTASILVA","-","vista",40.37],
+      ["26/02/26","FRANCISCOCARLOS","-","vista",32.91],
+      ["26/02/26","COPAFER COMERCIAL LTDA","-","vista",201.18],
+      ["26/02/26","99FOOD *99FOOD","-","vista",25.48],
+      ["27/02/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",66.50],
+      ["27/02/26","HOMEBURGER","-","vista",129.79],
+      ["28/02/26","FOQUITO COMERCIO MATER","-","vista",21.95],
+      ["28/02/26","APPLECOMBILL","-","vista",32.90],
+      ["28/02/26","IFD*PETSUPERMARKET COM","-","vista",106.90],
+      ["28/02/26","CARVALHO E FILHOS","-","vista",13.00],
+      ["28/02/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",197.90],
+      ["28/02/26","APPLECOMBILL","-","vista",34.90],
+      ["01/03/26","MERCADOLIVRE*MERCADOLIVRE","-","estorno",-197.90],
+      ["01/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",27.99],
+      ["01/03/26","APPLECOMBILL","-","vista",114.28],
+      ["02/03/26","MP*BRUTUSCAR","-","estorno",-1045.00],
+      ["02/03/26","MP*VISAOPRODUCOES","1/5","parc",275.00],
+      ["03/03/26","IFD*ARCOS DOURADOS COM","-","vista",97.89],
+      ["03/03/26","APPLECOMBILL","-","vista",29.90],
+      ["04/03/26","Google One","-","vista",96.99],
+      ["04/03/26","FLAVIASEGALA","1/2","parc",125.00],
+      ["04/03/26","PG *HUTZ","1/3","parc",360.00],
+      ["04/03/26","APPLECOMBILL","-","vista",53.90],
+      ["05/03/26","COSTASILVA","-","vista",83.86],
+      ["05/03/26","DANILOLIMADEARAUJ","-","vista",129.79],
+      ["05/03/26","MERCADOLIVRE*8PRODUT","1/3","parc",194.34],
+      ["05/03/26","DANILOLIMADEARAUJ","-","vista",125.79],
+      ["06/03/26","NETFLIX.COM","-","vista",57.80],
+      ["06/03/26","COSTASILVA","-","vista",42.65],
+      ["06/03/26","MP*8PRODUTOS","1/10","parc",135.62],
+      ["06/03/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+      ["06/03/26","JIM.COM IGOR ARA","-","vista",35.00],
+      ["07/03/26","LA DONNA PIZZA","-","vista",67.98],
+      ["07/03/26","EC *MERCADOLIVRE","1/6","parc",44.95],
+      ["07/03/26","EC *MERCADOLIVRE","1/6","parc",152.51],
+      ["07/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",102.88],
+      ["07/03/26","MERCADOLIVRE*EZOO","-","vista",41.89],
+      ["08/03/26","AUTO P POLO PETROQUIMI","-","vista",83.86],
+      ["08/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",124.00],
+      ["08/03/26","APPLECOMBILL","-","vista",35.00],
+      ["08/03/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+      ["08/03/26","MERCADOLIVRE*MERCADO","1/4","parc",38.48],
+      ["08/03/26","FRANCISCOCARLOS","-","vista",146.06],
+      ["08/03/26","MERCADOLIVRE*MERCADO","1/4","parc",169.17],
+      ["09/03/26","MERCADOLIVRE*PRISMAPROAUD","-","vista",100.80],
+      ["09/03/26","APPLECOMBILL","-","vista",35.00],
+      ["09/03/26","MERCADOLIVRE*MERCADO","1/2","parc",71.25],
+      ["09/03/26","MERCADOLIVRE*VPSOM","1/3","parc",138.68],
+      ["09/03/26","MP*MERCADOLIVRE","1/10","parc",97.90],
+      ["10/03/26","NETFLIX.COM","-","vista",59.90],
+      ["10/03/26","MERCADOLIVRE*MERCADOLIVRE","-","estorno",-142.50],
+      ["10/03/26","APPLECOMBILL","-","vista",99.90],
+      ["10/03/26","APPLECOMBILL","-","vista",61.79],
+      ["10/03/26","MERCADOLIVRE*VILLARM","1/2","parc",69.90],
+      ["10/03/26","RESTAURANTE BISTRO 56","-","vista",161.97],
+      ["10/03/26","COPAFER COMERCIAL LT","1/2","parc",135.80],
+      ["10/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",91.96],
+      ["10/03/26","MERCADOLIVRE*MERCADO","1/2","parc",79.60],
+      ["11/03/26","APPLECOMBILL","-","vista",137.90],
+      ["11/03/26","CENTRO AUTOMOTIVO NOVO","-","vista",90.86],
+      ["11/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",109.97],
+      ["12/03/26","UBER* TRIP","-","vista",33.93],
+      ["12/03/26","MERCADOLIVRE*MERCADO","1/2","parc",77.37],
+      ["13/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",56.58],
+      ["13/03/26","APPLECOMBILL","-","vista",53.90],
+      ["13/03/26","MP*ARMAZEMDASESP","1/10","parc",87.00],
+      ["13/03/26","BENDITO GREGGO","-","vista",49.56],
+      ["13/03/26","UBER* TRIP","-","vista",3.00],
+      ["13/03/26","BENDITO GREGGO","-","vista",76.42],
+      ["13/03/26","UBER*TRIP HELP","-","vista",13.73],
+      ["14/03/26","IFD*PET SHOP DR HATO L","-","vista",65.70],
+      ["14/03/26","IFD*ARCOS DOURADOS COM","-","vista",52.99],
+      ["14/03/26","MERCADOLIVRE*FRIOLAR","-","vista",42.39],
+      ["14/03/26","MERCADOLIVRE*FERRETT","1/3","parc",30.34],
+      ["14/03/26","MERCADOLIVRE*ARTBOX3","1/2","parc",25.44],
+      ["14/03/26","AUTO POSTO JOIA DA SAP","-","vista",97.86],
+      ["14/03/26","MERCADOLIVRE*ARTBOX3","1/2","parc",25.44],
+      ["14/03/26","LA DONNA PIZZA","-","vista",136.00],
+      ["15/03/26","IFD*IFOOD","-","vista",48.79],
+      ["15/03/26","PIA BURGUER E PIZZA","-","vista",112.00],
+      ["15/03/26","UBER * PENDING","-","vista",33.94],
+      ["16/03/26","APPLECOMBILL","-","vista",66.90],
+      ["16/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",76.01],
+      ["16/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",33.01],
+      ["16/03/26","UBER* TRIP","-","vista",10.29],
+      ["17/03/26","UBER* TRIP","-","vista",28.12],
+      ["17/03/26","MERCADOLIVRE*MERCADO","1/2","parc",149.61],
+      ["18/03/26","SUPER ABC","-","vista",84.82],
+      ["18/03/26","UBER* TRIP","-","vista",15.77],
+      ["18/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",111.90],
+      ["18/03/26","MERCADOLIVRE*MERCADO","1/2","parc",57.18],
+      ["19/03/26","SUPER ABC","-","vista",57.00],
+      ["19/03/26","SUPER ABC","-","vista",39.90],
+      ["20/03/26","UBER* TRIP","-","vista",36.94],
+      ["20/03/26","UBER* TRIP","-","vista",41.93],
+      ["20/03/26","MERCADOLIVRE*THAPRES","1/2","parc",30.45],
+      ["20/03/26","SUPER ABC","-","vista",81.20],
+      ["20/03/26","COSTASILVA","-","vista",48.89],
+      ["21/03/26","MP*MERCADOLIVRE","1/10","parc",97.00],
+      ["21/03/26","CENTRO AUTOMOTIVO BAP","-","vista",107.66],
+      ["21/03/26","FACEBK","-","vista",90.90],
+      ["21/03/26","IFD*PANIFICADORA E CON","-","vista",65.48],
+      ["21/03/26","LA DONNA PIZZA","-","vista",204.95],
+      ["22/03/26","APPLECOMBILL","-","vista",5.90],
+      ["22/03/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+      ["22/03/26","MERCADOLIVRE*MERCADO","1/2","parc",300.34],
+      ["22/03/26","EC *MIMOSCAPRICHO","-","vista",42.27],
+      ["23/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",69.47],
+      ["23/03/26","MP*RCKAUDIO","1/10","parc",246.90],
+      ["23/03/26","MERCADOLIVRE*ENTERLIGHT","-","vista",156.98],
+      ["23/03/26","MERCADOLIVRE*ODINSHOP","-","vista",99.90],
+      ["23/03/26","APPLECOMBILL","-","vista",79.90],
+      ["23/03/26","MERCADOLIVRE*GRUPODJMORCH","-","vista",69.98],
+      ["23/03/26","MERCADOLIVRE*LUTECPA","1/2","parc",22.50],
+      ["23/03/26","MERCADOLIVRE*NINAVIB","1/2","parc",26.40],
+      ["24/03/26","UBER* TRIP","-","vista",37.94],
+      ["24/03/26","UBER* TRIP","-","vista",9.47],
+      ["24/03/26","IFD*55913124 DALVA BEA","-","vista",33.76],
+      ["24/03/26","MERCADOLIVRE*MERCADO","1/2","parc",30.50],
+      ["24/03/26","DL*UBERRIDES","-","vista",9.94],
+      ["24/03/26","MERCADOLIVRE*BILBRU","-","vista",79.65],
+      ["24/03/26","MERCADOLIVRE*FRIOLAR","-","vista",287.89],
+      ["24/03/26","IFD*PETSUPERMARKET COM","-","vista",85.91],
+      ["24/03/26","CENTRO AUTOMOTIVO HUMA","-","vista",115.35],
+      ["24/03/26","PANIFICADORA MG","-","vista",120.00],
+      ["24/03/26","UBER* TRIP","-","vista",1.26],
+      ["24/03/26","MERCADOLIVRE*MERCADOLIVRE","-","estorno",-111.90],
+      ["24/03/26","UBER* TRIP","-","vista",20.58],
+      ["24/03/26","MERCADOLIVRE*SHOPCENTER","-","vista",39.39],
+      ["24/03/26","UBER* TRIP","-","vista",12.94],
+      ["25/03/26","MERCADOLIVRE*DEEPSOU","1/2","parc",89.85],
+      ["25/03/26","PANIFICADORA MG","-","vista",97.00],
+      ["25/03/26","LUAN PEDROSA GONCALVES","-","vista",37.00],
+      ["25/03/26","MERCADOLIVRE*CABOSSP","-","vista",598.00],
+      ["25/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",160.02],
+      ["25/03/26","MP*VISAOPRODUCOES","-","vista",606.00],
+      ["26/03/26","GLOBE LAVA RAPIDO","-","vista",40.00],
+      ["26/03/26","MP*MERCADOLIVRE","-","estorno",-485.00],
+      ["27/03/26","SUPER ABC","1/2","parc",108.41],
+      ["27/03/26","ANUIDADE DIFERENCIADA","5/12","parc",100.00],
+      ["27/03/26","UBER* TRIP","-","vista",14.94],
+      ["27/03/26","IFD*IFOOD","-","vista",49.96],
+      ["28/03/26","MP*PORTERIEREVESTIMENTOS","-","vista",6.27],
+      ["28/03/26","APPLECOMBILL","-","vista",67.80],
+      ["28/03/26","RESTAURANTE NOVA OPCAO","-","vista",90.00],
+      ["28/03/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",95.18],
+      ["29/03/26","MP*PORTERIEREVESTIMENTOS","-","vista",313.47],
+      ["29/03/26","A P NOVO OURO NEGRO","-","vista",101.50],
+      ["29/03/26","ATACADAO 811 AS","-","vista",122.76],
+      ["29/03/26","COOP","-","vista",9.35],
+      ["29/03/26","COOP","-","vista",45.66],
+      ["29/03/26","ATACADAO 811 AS","-","vista",276.96],
+      ["29/03/26","MERCADOLIVRE*CABOSSP","1/2","parc",106.92],
+      ["29/03/26","MP*ABBASREPRESEN","-","vista",45.97],
+      ["29/03/26","MP*MERCADOLIVRE","1/10","parc",75.80],
+      ["29/03/26","COOP","-","vista",1.29],
+      ["29/03/26","MERCADOLIVRE*PLUGIMPORTS","-","vista",40.59],
+      ["28/09/25","MP*LOJA","6/6","parc",47.14],
+      ["29/11/25","E AGENCIAS","4/6","parc",1472.87],
+      ["29/11/25","SHOPEE *8QYKO0KMTG","4/4","parc",99.39],
+      ["07/02/26","MERCADOLIVRE*MAGAZIN","2/2","parc",114.68],
+      ["28/02/26","TOTALPASS","-","vista",89.90],
+      ["17/03/26","APPLECOMBILL","-","vista",19.90],
+      ["17/03/26","APPLECOMBILL","-","vista",9.99],
+      ["24/03/26","KITTL.COM USD120","-","cambio",120.00],
+    ]
+  },
+    aberto:{
     label:'Em aberto',venc:'Acumulando...',total:null,saldoAnterior:13902.67,color:'#E65100',
     rows:[
       ["07/05/26","MP*ABBASREPRESEN","-","vista",40.40],
@@ -530,7 +1013,14 @@ function calcSummary(key){
     else if(t==='parc'){sp+=v;np++;}
     else if(t==='estorno'){se+=Math.abs(v);ne++;}
   });
-  if(key==='mai26'){
+  if(key==='abr26'){
+    document.getElementById('abr26-v-vista').textContent=brl(sv);
+    document.getElementById('abr26-s-vista').textContent=nv+' lançamentos';
+    document.getElementById('abr26-v-parc').textContent=brl(sp);
+    document.getElementById('abr26-s-parc').textContent=np+' parcelas';
+    document.getElementById('abr26-v-est').textContent=brl(se);
+    document.getElementById('abr26-s-est').textContent=ne+' devoluções';
+  } else if(key==='mai26'){
     document.getElementById('mai26-v-vista').textContent=brl(sv);
     document.getElementById('mai26-s-vista').textContent=nv+' lançamentos';
     document.getElementById('mai26-v-parc').textContent=brl(sp);
@@ -564,7 +1054,7 @@ function buildBars(key,elId){
 }
 
 /* ══ TABELA ══ */
-const AF={mai26:'all',aberto:'all'};
+const AF={abr26:'all',mai26:'all',aberto:'all'};
 function filt(key,f,idx){
   AF[key]=f;
   document.querySelectorAll(`#cards-${key} .card`).forEach((c,i)=>c.classList.toggle('on',i===idx));
@@ -597,7 +1087,7 @@ function renderTable(key){
 
 /* ══ OVERVIEW ══ */
 function buildOverview(){
-  const keys=Object.keys(MESES).filter(k=>k!=='aberto');
+  const keys=Object.keys(MESES).filter(k=>k!=='aberto'&&k!=='abr26'||true).filter(k=>k!=='aberto');
   const totais=keys.map(k=>MESES[k].total||0);
   const max=Math.max(...totais);
   const soma=totais.reduce((a,b)=>a+b,0);
@@ -619,16 +1109,189 @@ function buildOverview(){
 function showTab(key){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('visible'));
   document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  const tabKeys=['overview','parcelas','mai26','aberto'];
+  const tabKeys=['overview','parcelas','planejamento','guia','abr26','mai26','aberto'];
   const idx=tabKeys.indexOf(key);
   if(idx>=0)document.querySelectorAll('.tab')[idx].classList.add('active');
   document.getElementById('tab-'+key).classList.add('visible');
 }
 
+/* ══ PLANEJAMENTO ══ */
+const PARCELAS_PLAN = [
+  {desc:"MERCADOPAGO*MALAVAZI",   atual:7,  total:12, val:663.33},
+  {desc:"JM DRA JOYCE MICH",      atual:5,  total:10, val:182.33},
+  {desc:"MAGALU FL 568",           atual:5,  total:10, val:246.40},
+  {desc:"JF PNEUS",                atual:2,  total:6,  val:237.09},
+  {desc:"MERCADOLIVRE*MERCADO",    atual:1,  total:6,  val:179.92},
+  {desc:"E AGENCIAS",              atual:5,  total:6,  val:1472.87},
+  {desc:"MP*VISAOPRODUCOES",       atual:2,  total:5,  val:275.00},
+  {desc:"PG *HUTZ",                atual:2,  total:3,  val:360.00},
+  {desc:"MERCADOLIVRE*8PRODUT",    atual:2,  total:3,  val:194.33},
+  {desc:"MP*8PRODUTOS",            atual:1,  total:10, val:135.54},
+  {desc:"EC *MERCADOLIVRE (1)",    atual:2,  total:6,  val:152.49},
+  {desc:"EC *MERCADOLIVRE (2)",    atual:2,  total:6,  val:44.95},
+  {desc:"MERCADOLIVRE*MERCADO(1)", atual:2,  total:4,  val:38.47},
+  {desc:"MERCADOLIVRE*MERCADO(2)", atual:2,  total:4,  val:169.14},
+  {desc:"MERCADOLIVRE*VPSOM",      atual:2,  total:3,  val:138.68},
+  {desc:"MP*MERCADOLIVRE (1)",     atual:1,  total:10, val:97.90},
+  {desc:"MP*ARMAZEMDASESP",        atual:1,  total:10, val:87.00},
+  {desc:"MP*MERCADOLIVRE (2)",     atual:1,  total:10, val:97.00},
+  {desc:"MP*RCKAUDIO",             atual:1,  total:10, val:246.90},
+  {desc:"MERCADOLIVRE*FERRETT",    atual:2,  total:3,  val:30.32},
+  {desc:"ANUIDADE DIFERENCIADA",   atual:6,  total:12, val:100.00},
+  {desc:"MP*GENDO",                atual:1,  total:12, val:34.33},
+  {desc:"IG*GENDO",                atual:1,  total:12, val:30.00},
+];
+const MESES_NOMES = ["","Jun/26","Jul/26","Ago/26","Set/26","Out/26","Nov/26","Dez/26","Jan/27","Fev/27","Mar/27","Abr/27","Mai/27"];
+let salario = 9000;
+
+function calcMonthly(){
+  const monthly = Array(13).fill(0).map(()=>({total:0,items:[]}));
+  PARCELAS_PLAN.forEach(p=>{
+    const rest = p.total - p.atual;
+    for(let m=1;m<=rest;m++){
+      monthly[m].total += p.val;
+      monthly[m].items.push({desc:p.desc, val:p.val});
+    }
+  });
+  return monthly;
+}
+
+function getRec(pct, sobra){
+  if(pct > 55) return "⚠️ Mês crítico! Mais da metade do salário vai em parcelas. Evite qualquer compra nova parcelada.";
+  if(pct > 40) return "🔶 Mês pesado. Reserve o valor das parcelas assim que receber o salário. Priorize gastos essenciais.";
+  if(pct > 25) return "🟡 Mês moderado. Você tem margem, mas cuidado com gastos por impulso.";
+  if(pct > 10) return "🟢 Mês tranquilo. Ótima oportunidade para guardar parte do salário ou quitar dívidas antecipadamente.";
+  return "✅ Mês leve! Considere guardar ou investir a sobra.";
+}
+
+function buildPlanAlerts(monthly){
+  const el = document.getElementById('plan-alerts');
+  const jun = monthly[1].total;
+  const pct = jun/salario*100;
+  let html = '';
+  if(pct > 50){
+    html += `<div class="plan-alert danger"><div class="plan-alert-icon">🚨</div><div><strong>Junho é crítico!</strong> R$ ${brl(jun).replace('R$ ','')} em parcelas = ${pct.toFixed(0)}% do seu salário. Você terá apenas ${brl(salario-jun)} para todos os outros gastos do mês. Não faça novas compras parceladas agora.</div></div>`;
+  }
+  const faturaAberta = 13902.67;
+  html += `<div class="plan-alert warn"><div class="plan-alert-icon">📋</div><div><strong>Fatura mai/26 em aberto:</strong> R$ ${brl(faturaAberta).replace('R$ ','')} com vencimento 10/05/2026. Se não pagar o total, juros de até 14,99% a.m. serão cobrados — isso pode dobrar a dívida rapidamente.</div></div>`;
+  html += `<div class="plan-alert ok"><div class="plan-alert-icon">📅</div><div><strong>Boa notícia:</strong> A partir de Nov/26 suas parcelas caem bastante. Em Mai/27 você fica completamente livre de parcelas fixas atuais. Segure as compras parceladas por mais 5 meses!</div></div>`;
+  el.innerHTML = html;
+}
+
+function buildBudgetBars(){
+  const monthly = calcMonthly();
+  const parcelasJun = monthly[1].total;
+  const items = [
+    {label:'Parcelas (Jun/26)', val:parcelasJun, color:'#CC092F', pct:parcelasJun/salario*100},
+    {label:'Moradia/Aluguel', val:0, color:'#1565C0', pct:0, editable:true, placeholder:'0'},
+    {label:'Alimentação', val:1200, color:'#2E7D32', pct:1200/salario*100},
+    {label:'Transporte', val:600, color:'#E65100', pct:600/salario*100},
+    {label:'Saúde', val:300, color:'#6A1B9A', pct:300/salario*100},
+    {label:'Lazer', val:400, color:'#0277BD', pct:400/salario*100},
+  ];
+  const totalGasto = items.reduce((s,i)=>s+i.val,0);
+  const sobra = salario - totalGasto;
+  const el = document.getElementById('budget-bars');
+  let html = '';
+  items.forEach(it=>{
+    const pct = Math.min(it.val/salario*100, 100);
+    html += `<div class="budget-row">
+      <div class="budget-label">${it.label}</div>
+      <div class="budget-bar-track"><div class="budget-bar-fill" style="width:${pct}%;background:${it.color}"></div></div>
+      <div class="budget-val">${brl(it.val)}</div>
+    </div>`;
+  });
+  const sobraPct = Math.max(sobra/salario*100,0);
+  const sobraColor = sobra < 0 ? '#CC092F' : '#2E7D32';
+  html += `<div class="budget-row" style="border-top:1px solid var(--gray2);margin-top:8px;padding-top:10px">
+    <div class="budget-label" style="font-weight:600">Sobra estimada</div>
+    <div class="budget-bar-track"><div class="budget-bar-fill" style="width:${sobraPct}%;background:${sobraColor}"></div></div>
+    <div class="budget-val" style="color:${sobraColor};font-weight:600">${brl(Math.abs(sobra))}${sobra<0?' ❌':' ✓'}</div>
+  </div>`;
+  el.innerHTML = html;
+}
+
+function buildMonthPlan(){
+  const monthly = calcMonthly();
+  const grid = document.getElementById('month-plan-grid');
+  grid.innerHTML = '';
+  for(let m=1; m<=12; m++){
+    if(monthly[m].items.length === 0) continue;
+    const tot = monthly[m].total;
+    const pct = tot/salario*100;
+    const sobra = salario - tot;
+    const color = pct>50?'#CC092F':pct>30?'#E65100':pct>15?'#BA7517':'#2E7D32';
+    const rec = getRec(pct, sobra);
+    const id = 'mpb-'+m;
+    const div = document.createElement('div');
+    div.className = 'mp-card';
+    div.innerHTML = `
+      <div class="mp-header" onclick="toggleMonth('${id}')">
+        <div class="mp-month">${MESES_NOMES[m]}</div>
+        <div class="mp-right">
+          <div class="mp-bar-mini"><div class="mp-bar-mini-fill" style="width:${Math.min(pct,100)}%;background:${color}"></div></div>
+          <div class="mp-pct" style="color:${color}">${pct.toFixed(0)}%</div>
+          <div class="mp-total">${brl(tot)}</div>
+          <div class="mp-chevron" id="chv-${id}">▼</div>
+        </div>
+      </div>
+      <div class="mp-body" id="${id}">
+        <div class="mp-summary">
+          <div class="mp-sum-item"><div class="mp-sum-lbl">Em parcelas</div><div class="mp-sum-val" style="color:${color}">${brl(tot)}</div></div>
+          <div class="mp-sum-item"><div class="mp-sum-lbl">% do salário</div><div class="mp-sum-val" style="color:${color}">${pct.toFixed(1)}%</div></div>
+          <div class="mp-sum-item"><div class="mp-sum-lbl">Sobra estimada</div><div class="mp-sum-val" style="color:${sobra<0?'#CC092F':'#2E7D32'}">${brl(sobra)}</div></div>
+        </div>
+        <div class="mp-items">
+          ${monthly[m].items.sort((a,b)=>b.val-a.val).map(it=>`<div class="mp-item-row"><div class="mp-item-desc">${it.desc}</div><div class="mp-item-val">${brl(it.val)}</div></div>`).join('')}
+        </div>
+        <div class="mp-rec">${rec}</div>
+      </div>`;
+    grid.appendChild(div);
+  }
+}
+
+function toggleMonth(id){
+  const body = document.getElementById(id);
+  const chv = document.getElementById('chv-'+id);
+  body.classList.toggle('open');
+  chv.classList.toggle('open');
+}
+
+function updateSalary(){
+  const v = parseFloat(document.getElementById('salary-input').value);
+  if(!v||v<1) return;
+  salario = v;
+  document.getElementById('ph-salary').textContent = brl(v);
+  document.getElementById('ph-sal-val').textContent = brl(v);
+  document.getElementById('salary-note').textContent = '✓ Atualizado!';
+  setTimeout(()=>document.getElementById('salary-note').textContent='', 2000);
+  buildPlanAlerts(calcMonthly());
+  buildBudgetBars();
+  buildMonthPlan();
+}
+
+function buildPlanning(){
+  const monthly = calcMonthly();
+  buildPlanAlerts(monthly);
+  buildBudgetBars();
+  buildMonthPlan();
+}
 /* ══ INIT ══ */
+calcSummary('abr26');buildBars('abr26','bars-abr26');renderTable('abr26');
 calcSummary('mai26');buildBars('mai26','bars-mai26');renderTable('mai26');
 calcSummary('aberto');buildBars('aberto','bars-aberto');renderTable('aberto');
 buildOverview();buildParcelas();
+buildPlanning();
+
+
+function copyMsg(){
+  const txt = `Oi! Segue a fatura fechada de [MÊS/ANO], o extrato em aberto de [DATA] e o HTML atual.\n\nPor favor:\n1. Adicione a aba do novo mês com os lançamentos\n2. Atualize a aba "Em aberto" com os novos lançamentos\n3. Recalcule o planejamento com as parcelas atualizadas\n4. Mantenha o histórico dos meses anteriores\n\nMeu salário continua R$ 9.000/mês.`;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn = document.querySelector('.copy-btn');
+    if(btn){btn.textContent='✅ Copiado!';setTimeout(()=>btn.textContent='📋 Copiar',2000);}
+  });
+}
+
 </script>
 </body>
 </html>
