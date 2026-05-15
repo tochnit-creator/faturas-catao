@@ -149,6 +149,46 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .salary-input-wrap input{border:1.5px solid var(--gray2);border-radius:7px;padding:7px 12px;font-size:14px;font-weight:500;width:150px;outline:none;transition:border-color .15s}
 .salary-input-wrap input:focus{border-color:var(--red)}
 .salary-input-wrap button{background:var(--red);color:white;border:none;border-radius:7px;padding:8px 18px;font-size:13px;cursor:pointer;font-weight:500}
+/* ══ SIMULADOR ══ */
+.sim-hero{background:linear-gradient(135deg,#1a1a2e 0%,#1565C0 100%);border-radius:12px;padding:22px;margin-bottom:14px;color:white}
+.sim-hero-ttl{font-size:17px;font-weight:600;margin-bottom:4px}
+.sim-hero-sub{font-size:12px;opacity:.8;line-height:1.5}
+.sim-setup{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:20px;margin-bottom:14px}
+.sim-setup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:14px}
+.sim-field label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:block;margin-bottom:4px}
+.sim-field input{width:100%;border:1.5px solid var(--gray2);border-radius:7px;padding:8px 12px;font-size:14px;font-weight:500;outline:none;transition:border-color .15s;color:var(--text)}
+.sim-field input:focus{border-color:#1565C0}
+.sim-btn{background:#1565C0;color:white;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.sim-btn:hover{background:#0d47a1}
+.sim-months-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.sim-month-card{background:var(--white);border:1px solid var(--gray2);border-radius:10px;padding:14px;position:relative}
+.sim-month-card.pago{border-color:#2E7D32}
+.sim-month-card.parcial{border-color:#E65100}
+.sim-month-card.naopago{border-color:#CC092F}
+.sim-month-card.quitado{border-color:#2E7D32;background:#f0fff4}
+.sim-month-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.sim-month-saldo{font-size:11px;color:var(--muted);margin-bottom:6px}
+.sim-month-input-wrap{display:flex;gap:6px;align-items:center}
+.sim-month-input{flex:1;border:1.5px solid var(--gray2);border-radius:6px;padding:6px 10px;font-size:13px;font-weight:500;outline:none;transition:border-color .15s}
+.sim-month-input:focus{border-color:#1565C0}
+.sim-month-btn{background:var(--gray2);border:none;border-radius:6px;padding:6px 10px;font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);white-space:nowrap}
+.sim-month-btn:hover{background:#ddd}
+.sim-result-bar{height:8px;border-radius:4px;margin-top:8px;background:var(--gray2);overflow:hidden}
+.sim-result-bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.sim-result-val{display:flex;justify-content:space-between;font-size:11px;margin-top:4px}
+.sim-summary{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:20px;margin-bottom:14px}
+.sim-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.sim-sum-card{border-radius:8px;padding:14px;text-align:center}
+.sim-sum-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.sim-sum-val{font-size:18px;font-weight:700}
+.sim-timeline{margin-top:14px}
+.sim-tl-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray);font-size:13px}
+.sim-tl-row:last-child{border-bottom:none}
+.sim-tl-mes{width:70px;font-weight:600;flex-shrink:0}
+.sim-tl-bar-wrap{flex:1;background:var(--gray);border-radius:4px;height:12px;overflow:hidden}
+.sim-tl-bar{height:100%;border-radius:4px}
+.sim-tl-vals{width:200px;text-align:right;font-size:11px;flex-shrink:0}
+
 /* ══ GUIA ══ */
 .guia-hero{background:linear-gradient(135deg,#1a1a2e 0%,#CC092F 100%);border-radius:12px;padding:24px;margin-bottom:14px;color:white;text-align:center}
 .guia-hero-ttl{font-size:20px;font-weight:700;margin-bottom:6px}
@@ -240,6 +280,7 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
     <div class="tab"           onclick="showTab('abr26')">Abr/26</div>
     <div class="tab"           onclick="showTab('mai26')">Mai/26</div>
     <div class="tab"           onclick="showTab('planejamento')">💡 Planejamento</div>
+    <div class="tab"           onclick="showTab('simulador')">🧮 Simulador</div>
     <div class="tab"           onclick="showTab('guia')">📖 Guia</div>
     <div class="tab aberto"    onclick="showTab('aberto')">Em aberto ⚡</div>
   </div>
@@ -260,6 +301,31 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
       <input type="number" id="salary-input" value="9000" min="1000" step="500">
       <button onclick="updateSalary()">Atualizar</button>
       <span style="font-size:12px;color:var(--muted)" id="salary-note"></span>
+    </div>
+
+    <!-- ROTATIVO ALERT -->
+    <div style="background:#fff0f2;border:1.5px solid #CC092F;border-radius:12px;padding:18px 20px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:22px">🔥</span>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:#9e0020">Dívida no Rotativo</div>
+          <div style="font-size:11px;color:#CC092F;margin-top:2px">Juros de 16,99% ao mês — a dívida cresce rapidamente!</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px">
+        <div>
+          <label style="font-size:11px;color:#9e0020;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">Valor em rotativo (R$)</label>
+          <input type="number" id="rotativo-input" value="9882" min="0" step="100"
+            style="width:100%;border:1.5px solid #CC092F;border-radius:7px;padding:8px 12px;font-size:15px;font-weight:600;color:#9e0020;outline:none;background:#fff8f8">
+        </div>
+        <div>
+          <label style="font-size:11px;color:#9e0020;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px">Juros ao mês (%)</label>
+          <input type="number" id="juros-input" value="16.99" min="1" max="30" step="0.1"
+            style="width:100%;border:1.5px solid #ffb3be;border-radius:7px;padding:8px 12px;font-size:15px;font-weight:600;color:#9e0020;outline:none;background:#fff8f8">
+        </div>
+      </div>
+      <button onclick="calcRotativo()" style="background:#CC092F;color:white;border:none;border-radius:7px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:14px">📊 Calcular crescimento</button>
+      <div id="rotativo-result"></div>
     </div>
     <div class="plan-hero">
       <div class="plan-hero-ttl">💡 Seu planejamento financeiro</div>
@@ -373,6 +439,63 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
         <div class="foot"><span>Total filtrado</span><strong id="ft-aberto">—</strong></div>
       </div>
     </div>
+  </div>
+
+
+  <!-- ══ SIMULADOR ══ -->
+  <div class="view" id="tab-simulador">
+
+    <div class="sim-hero">
+      <div style="font-size:28px;margin-bottom:8px">🧮</div>
+      <div class="sim-hero-ttl">Simulador de pagamento</div>
+      <div class="sim-hero-sub">Informe quanto você consegue pagar em cada mês e veja o saldo restante com juros acumulados — assim você sabe exatamente quando quita a dívida.</div>
+    </div>
+
+    <div class="sim-setup">
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px">⚙️ Configure a simulação</div>
+      <div class="sim-setup-grid">
+        <div class="sim-field">
+          <label>Saldo devedor atual (R$)</label>
+          <input type="number" id="sim-saldo" value="9882" min="0" step="100">
+        </div>
+        <div class="sim-field">
+          <label>Juros ao mês (%)</label>
+          <input type="number" id="sim-juros" value="16.99" min="1" max="30" step="0.01">
+        </div>
+        <div class="sim-field">
+          <label>Mês inicial</label>
+          <select id="sim-mes-inicial" style="width:100%;border:1.5px solid var(--gray2);border-radius:7px;padding:8px 12px;font-size:14px;font-weight:500;outline:none;background:white;color:var(--text)">
+            <option value="0">Jun/26</option>
+            <option value="1">Jul/26</option>
+            <option value="2">Ago/26</option>
+            <option value="3">Set/26</option>
+          </select>
+        </div>
+        <div class="sim-field">
+          <label>Qtd de meses</label>
+          <input type="number" id="sim-qtd-meses" value="8" min="2" max="24" step="1">
+        </div>
+      </div>
+      <button class="sim-btn" onclick="initSimulador()">🔄 Gerar simulação</button>
+    </div>
+
+    <div id="sim-months-container" style="display:none">
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">💳 Quanto você vai pagar em cada mês?</div>
+      <div class="sim-months-grid" id="sim-months-grid"></div>
+      <button class="sim-btn" onclick="calcSimulador()" style="width:100%;padding:12px;font-size:14px;margin-bottom:14px">📊 Calcular resultado</button>
+    </div>
+
+    <div id="sim-result-container" style="display:none">
+      <div class="sim-summary">
+        <div style="font-size:13px;font-weight:600;color:var(--text)">📈 Resultado da simulação</div>
+        <div class="sim-summary-grid" id="sim-summary-grid"></div>
+      </div>
+      <div class="section">
+        <div class="sec-ttl"><span>Evolução mês a mês</span></div>
+        <div class="sim-timeline" id="sim-timeline"></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ══ GUIA ══ -->
@@ -846,6 +969,35 @@ const MESES = {
     aberto:{
     label:'Em aberto',venc:'Acumulando...',total:null,saldoAnterior:13902.67,color:'#E65100',
     rows:[
+      ["12/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",69.22],
+      ["11/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
+      ["11/05/26","MP*CLARO","-","vista",100.00],
+      ["11/05/26","5 CARTOES 23JM9L","-","vista",5.00],
+      ["11/05/26","DL*UBERRIDES","-","vista",21.98],
+      ["11/05/26","COSTASILVA","-","vista",50.00],
+      ["11/05/26","MP*ABBASREPRESEN","-","vista",11.11],
+      ["11/05/26","MP*ABBASREPRESEN","-","vista",761.40],
+      ["10/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
+      ["10/05/26","APPLE.COM/BILL.","-","vista",61.79],
+      ["10/05/26","NETFLIX.COM","-","vista",59.90],
+      ["10/05/26","PIA BURGUER E PIZZA","-","vista",101.00],
+      ["09/05/26","APPLE.COM/BILL.","-","vista",35.00],
+      ["09/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",39.95],
+      ["09/05/26","RESTAURANTE NOVA OPCAO","-","vista",95.00],
+      ["09/05/26","MERCADOLIVRE*NOPRATOCAFEE","-","vista",36.90],
+      ["09/05/26","MERCADOLIVRE*ALINE","-","vista",54.21],
+      ["09/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",118.72],
+      ["09/05/26","MERCADOLIVRE*NAYPER","-","estorno",-28.99],
+      ["08/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",484.53],
+      ["08/05/26","OITENTA AUTO POSTO LTD","-","vista",97.86],
+      ["08/05/26","CENTRO AUTOMOTIVO BAP","-","vista",40.00],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",28.99],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",31.99],
+      ["08/05/26","IFD*IFOOD","-","vista",114.38],
+      ["08/05/26","DL*UBERRIDES","-","vista",32.98],
+      ["08/05/26","MERCADO*MERCADOLIVRE","-","vista",157.38],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","estorno",-31.99],
+      ["08/05/26","PAG BOLETO BANCARIO","-","estorno",-4020.00],
       ["07/05/26","MP*ABBASREPRESEN","-","vista",40.40],
       ["07/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",58.87],
       ["07/05/26","APPLE.COM/BILL.","-","vista",109.90],
@@ -863,7 +1015,6 @@ const MESES = {
       ["04/05/26","PIKA.ART","-","cambio",181.70],
       ["04/05/26","IOF S/ TRANS INTER REAIS","-","vista",6.36],
       ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",122.46],
-      ["04/05/26","APPLE.COM/BILL.","-","vista",53.90],
       ["04/05/26","APPLE.COM/BILL.","-","vista",53.90],
       ["04/05/26","A P NOVO OURO NEGRO","-","vista",250.00],
       ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",2129.80],
@@ -884,30 +1035,6 @@ const MESES = {
       ["01/05/26","DL*UBERRIDES","-","vista",8.95],
       ["01/05/26","UBER * PENDING","-","vista",15.94],
       ["01/05/26","AUTO POSTO METROPOLE L","-","vista",50.00],
-      ["01/05/26","DL*UBERRIDES","-","vista",11.94],
-      ["01/05/26","CONCESSIONARIA SPMAR","-","vista",5.40],
-      ["01/05/26","EBN *PLAYSTATION","-","vista",33.11],
-      ["29/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",229.88],
-      ["29/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
-      ["29/04/26","CENTRO AUTOMOTIVO BAP","-","vista",50.00],
-      ["29/04/26","DL*UBERRIDES","-","vista",20.94],
-      ["29/04/26","COSTASILVA","-","vista",40.00],
-      ["28/04/26","APPLE.COM/BILL.","-","vista",67.80],
-      ["28/04/26","DL*UBERRIDES","-","vista",8.96],
-      ["25/04/26","DEB CHGBK MANUAL","-","vista",201.30],
-      ["01/04/26","MERCADOLIVRE*ARIZYMUSI","-","parc",62.00],
-      ["01/04/26","ASSAI ATACADISTA LJ16","-","parc",65.40],
-      ["29/03/26","MP*MERCADOLIVRE","-","parc",75.80],
-      ["21/03/26","MP*MERCADOLIVRE","-","parc",97.00],
-      ["07/03/26","EC *MERCADOLIVRE","-","parc",152.49],
-      ["07/03/26","EC *MERCADOLIVRE","-","parc",44.95],
-      ["06/03/26","MP*8PRODUTOS","-","parc",135.54],
-      ["05/03/26","MERCADOLIVRE*8PRODUTOS","-","parc",194.33],
-      ["04/03/26","PG *HUTZ","-","parc",360.00],
-      ["02/03/26","MP*VISAOPRODUCOES","-","parc",275.00],
-      ["25/06/25","MERCADOPAGO*MALAVAZIESTET","-","parc",663.33],
-      ["29/04/26","TOTALPASS","-","vista",89.90],
-      ["29/11/25","E AGENCIAS","-","parc",1472.87],
     ]
   }
 };
@@ -1031,7 +1158,7 @@ function calcSummary(key){
     const novos=sv+sp;
     document.getElementById('ab-v-novos').textContent=brl(novos);
     document.getElementById('ab-s-novos').textContent=(nv+np)+' itens';
-    document.getElementById('ab-v-total').textContent=brl(13902.67+novos);
+    const pago=4020.00; document.getElementById('ab-v-total').textContent=brl(13902.67-pago+novos);
   }
 }
 
@@ -1109,7 +1236,7 @@ function buildOverview(){
 function showTab(key){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('visible'));
   document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  const tabKeys=['overview','parcelas','planejamento','guia','abr26','mai26','aberto'];
+  const tabKeys=['overview','parcelas','planejamento','simulador','guia','abr26','mai26','aberto'];
   const idx=tabKeys.indexOf(key);
   if(idx>=0)document.querySelectorAll('.tab')[idx].classList.add('active');
   document.getElementById('tab-'+key).classList.add('visible');
@@ -1283,6 +1410,273 @@ calcSummary('aberto');buildBars('aberto','bars-aberto');renderTable('aberto');
 buildOverview();buildParcelas();
 buildPlanning();
 
+
+function calcRotativo(){
+  const valor = parseFloat(document.getElementById('rotativo-input').value)||0;
+  const juros = parseFloat(document.getElementById('juros-input').value)||16.99;
+  const taxa = juros/100;
+  const el = document.getElementById('rotativo-result');
+  if(valor<=0){el.innerHTML='<p style="color:#999;font-size:13px">Digite o valor em rotativo.</p>';return;}
+
+  let rows='';
+  let atual=valor;
+  let totalJuros=0;
+  for(let m=1;m<=6;m++){
+    const jurosMes=atual*taxa;
+    totalJuros+=jurosMes;
+    const novoTotal=atual+jurosMes;
+    const mesNome=['','Jun/26','Jul/26','Ago/26','Set/26','Out/26','Nov/26'][m];
+    const danger=novoTotal>valor*1.5?'color:#CC092F;font-weight:700':'color:#9e0020';
+    rows+=`<tr>
+      <td style="padding:7px 10px;border-bottom:1px solid #ffe0e0;font-size:13px;color:#555">${mesNome}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #ffe0e0;font-size:13px;color:#CC092F;text-align:right">+ ${brl(jurosMes)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #ffe0e0;font-size:13px;text-align:right;${danger}">${brl(novoTotal)}</td>
+    </tr>`;
+    atual=novoTotal;
+  }
+
+  const dobroEm = Math.ceil(Math.log(2)/Math.log(1+taxa));
+  el.innerHTML=`
+    <div style="border-radius:8px;overflow:hidden;border:1px solid #ffb3be;margin-bottom:10px">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:#CC092F">
+          <th style="padding:8px 10px;text-align:left;font-size:11px;color:white;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Mês</th>
+          <th style="padding:8px 10px;text-align:right;font-size:11px;color:white;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Juros</th>
+          <th style="padding:8px 10px;text-align:right;font-size:11px;color:white;font-weight:600;text-transform:uppercase;letter-spacing:.04em">Total da dívida</th>
+        </tr></thead>
+        <tbody style="background:#fff8f8">${rows}</tbody>
+      </table>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px">
+      <div style="background:#fff8f8;border:1px solid #ffb3be;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#CC092F;margin-bottom:4px">Juros em 6 meses</div>
+        <div style="font-size:18px;font-weight:700;color:#CC092F">${brl(totalJuros)}</div>
+      </div>
+      <div style="background:#fff8f8;border:1px solid #ffb3be;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#CC092F;margin-bottom:4px">Dívida dobra em</div>
+        <div style="font-size:18px;font-weight:700;color:#CC092F">${dobroEm} meses</div>
+      </div>
+      <div style="background:#fff0f2;border:1px solid #CC092F;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#9e0020;margin-bottom:4px">⚠️ Quite agora para pagar</div>
+        <div style="font-size:18px;font-weight:700;color:#9e0020">${brl(valor)}</div>
+        <div style="font-size:10px;color:#CC092F;margin-top:2px">vs ${brl(atual)} em 6 meses</div>
+      </div>
+    </div>`;
+}
+
+
+/* ══ SIMULADOR ══ */
+const MESES_SIM = ['Jun/26','Jul/26','Ago/26','Set/26','Out/26','Nov/26','Dez/26','Jan/27','Fev/27','Mar/27','Abr/27','Mai/27','Jun/27','Jul/27','Ago/27','Set/27','Out/27','Nov/27','Dez/27','Jan/28'];
+let simData = [];
+
+function initSimulador(){
+  const saldo = parseFloat(document.getElementById('sim-saldo').value)||9882;
+  const juros = parseFloat(document.getElementById('sim-juros').value)||16.99;
+  const mesInicial = parseInt(document.getElementById('sim-mes-inicial').value)||0;
+  const qtd = parseInt(document.getElementById('sim-qtd-meses').value)||8;
+
+  simData = [];
+  let saldoAtual = saldo;
+  for(let i=0;i<qtd;i++){
+    const mesIdx = mesInicial + i;
+    const jurosMes = saldoAtual * (juros/100);
+    const totalDevido = saldoAtual + jurosMes;
+    simData.push({
+      mes: MESES_SIM[mesIdx] || `Mês ${i+1}`,
+      saldoAntes: saldoAtual,
+      jurosMes,
+      totalDevido,
+      pagamento: 0,
+      saldoDepois: totalDevido
+    });
+    saldoAtual = totalDevido; // worst case se não pagar nada
+  }
+
+  renderSimMonths();
+  document.getElementById('sim-months-container').style.display='block';
+  document.getElementById('sim-result-container').style.display='none';
+}
+
+function renderSimMonths(){
+  const grid = document.getElementById('sim-months-grid');
+  grid.innerHTML = '';
+  simData.forEach((m,i)=>{
+    const div = document.createElement('div');
+    div.className = 'sim-month-card';
+    div.id = `sim-card-${i}`;
+    div.innerHTML = `
+      <div class="sim-month-label">
+        <span>${m.mes}</span>
+        <span style="font-size:10px;color:var(--muted)">Juros: ${brl(m.jurosMes)}</span>
+      </div>
+      <div class="sim-month-saldo">Saldo + juros: <strong style="color:#CC092F">${brl(m.totalDevido)}</strong></div>
+      <div class="sim-month-input-wrap">
+        <input type="number" class="sim-month-input" id="sim-pag-${i}"
+          placeholder="R$ quanto pagar..." min="0" step="100"
+          oninput="updateSimCard(${i})">
+        <button class="sim-month-btn" onclick="simPagarTudo(${i})">Tudo</button>
+        <button class="sim-month-btn" onclick="simPagarMinimo(${i})">Mín</button>
+      </div>
+      <div class="sim-result-bar"><div class="sim-result-bar-fill" id="sim-bar-${i}" style="width:0%;background:#2E7D32"></div></div>
+      <div class="sim-result-val">
+        <span id="sim-pct-${i}" style="color:var(--muted)">0% pago</span>
+        <span id="sim-resto-${i}" style="color:#CC092F">Resta: ${brl(m.totalDevido)}</span>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+
+function simPagarTudo(i){
+  const inp = document.getElementById(`sim-pag-${i}`);
+  inp.value = simData[i].totalDevido.toFixed(2);
+  updateSimCard(i);
+}
+
+function simPagarMinimo(i){
+  // minimo ~10% do saldo
+  const minimo = Math.max(simData[i].totalDevido * 0.10, 200);
+  const inp = document.getElementById(`sim-pag-${i}`);
+  inp.value = minimo.toFixed(2);
+  updateSimCard(i);
+}
+
+function updateSimCard(i){
+  const pag = parseFloat(document.getElementById(`sim-pag-${i}`).value)||0;
+  const total = simData[i].totalDevido;
+  const resto = Math.max(total - pag, 0);
+  const pct = Math.min(pag/total*100, 100);
+
+  const bar = document.getElementById(`sim-bar-${i}`);
+  const pctEl = document.getElementById(`sim-pct-${i}`);
+  const restoEl = document.getElementById(`sim-resto-${i}`);
+  const card = document.getElementById(`sim-card-${i}`);
+
+  bar.style.width = pct+'%';
+  bar.style.background = pct>=100?'#2E7D32':pct>=50?'#E65100':'#CC092F';
+  pctEl.textContent = pct.toFixed(0)+'% pago';
+  pctEl.style.color = pct>=100?'#2E7D32':pct>=50?'#E65100':'#CC092F';
+  restoEl.textContent = pct>=100?'✅ Quitado!':'Resta: '+brl(resto);
+  restoEl.style.color = pct>=100?'#2E7D32':'#CC092F';
+
+  card.className = 'sim-month-card '+(pct>=100?'quitado':pct>=50?'parcial':'naopago');
+
+  // Recalculate subsequent months with new saldo
+  recalcFromMonth(i+1, resto);
+}
+
+function recalcFromMonth(startIdx, saldoInicial){
+  const juros = parseFloat(document.getElementById('sim-juros').value)||16.99;
+  let saldo = saldoInicial;
+  for(let i=startIdx; i<simData.length; i++){
+    const jurosMes = saldo * (juros/100);
+    const totalDevido = saldo + jurosMes;
+    simData[i].saldoAntes = saldo;
+    simData[i].jurosMes = jurosMes;
+    simData[i].totalDevido = totalDevido;
+
+    // Update display
+    const jurosEl = document.querySelector(`#sim-card-${i} .sim-month-label span:last-child`);
+    const saldoEl = document.querySelector(`#sim-card-${i} .sim-month-saldo strong`);
+    if(jurosEl) jurosEl.textContent = 'Juros: '+brl(jurosMes);
+    if(saldoEl) saldoEl.textContent = brl(totalDevido);
+
+    // Recalc this card's display based on existing payment
+    const pag = parseFloat(document.getElementById(`sim-pag-${i}`)?.value)||0;
+    const resto = Math.max(totalDevido - pag, 0);
+    const pct = Math.min(pag/totalDevido*100, 100);
+    const restoEl = document.getElementById(`sim-resto-${i}`);
+    if(restoEl) restoEl.textContent = pct>=100?'✅ Quitado!':'Resta: '+brl(resto);
+    saldo = resto;
+  }
+}
+
+function calcSimulador(){
+  const juros = parseFloat(document.getElementById('sim-juros').value)||16.99;
+  const saldoInicial = parseFloat(document.getElementById('sim-saldo').value)||9882;
+  let saldo = saldoInicial;
+  let totalPago = 0;
+  let totalJuros = 0;
+  let mesesQuitado = null;
+  const timeline = [];
+
+  simData.forEach((m,i)=>{
+    const pag = parseFloat(document.getElementById(`sim-pag-${i}`)?.value)||0;
+    const jurosMes = saldo * (juros/100);
+    const totalDevido = saldo + jurosMes;
+    const pagReal = Math.min(pag, totalDevido);
+    const restoMes = Math.max(totalDevido - pagReal, 0);
+
+    totalPago += pagReal;
+    totalJuros += jurosMes;
+
+    timeline.push({
+      mes: m.mes,
+      saldoAntes: saldo,
+      jurosMes,
+      totalDevido,
+      pagamento: pagReal,
+      saldoDepois: restoMes,
+      quitado: restoMes <= 0
+    });
+
+    if(restoMes <= 0 && mesesQuitado === null) mesesQuitado = i;
+    saldo = restoMes;
+  });
+
+  const saldoFinal = saldo;
+  renderSimResult(timeline, saldoInicial, totalPago, totalJuros, mesesQuitado, saldoFinal);
+  document.getElementById('sim-result-container').style.display='block';
+  document.getElementById('sim-result-container').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderSimResult(timeline, saldoInicial, totalPago, totalJuros, mesesQuitado, saldoFinal){
+  // Summary cards
+  const sg = document.getElementById('sim-summary-grid');
+  const quitadoTxt = mesesQuitado !== null ? timeline[mesesQuitado].mes : 'Não quitado ❌';
+  const quitadoColor = mesesQuitado !== null ? '#2E7D32' : '#CC092F';
+  sg.innerHTML = `
+    <div class="sim-sum-card" style="background:#E3F0FF">
+      <div class="sim-sum-lbl">Saldo inicial</div>
+      <div class="sim-sum-val" style="color:#1565C0">${brl(saldoInicial)}</div>
+    </div>
+    <div class="sim-sum-card" style="background:#FFF3E0">
+      <div class="sim-sum-lbl">Total de juros pagos</div>
+      <div class="sim-sum-val" style="color:#E65100">${brl(totalJuros)}</div>
+    </div>
+    <div class="sim-sum-card" style="background:#f0fff4">
+      <div class="sim-sum-lbl">Total pago</div>
+      <div class="sim-sum-val" style="color:#2E7D32">${brl(totalPago)}</div>
+    </div>
+    <div class="sim-sum-card" style="background:${mesesQuitado!==null?'#f0fff4':'#fff0f2'}">
+      <div class="sim-sum-lbl">Quitado em</div>
+      <div class="sim-sum-val" style="color:${quitadoColor}">${quitadoTxt}</div>
+    </div>
+    ${saldoFinal>0?`<div class="sim-sum-card" style="background:#fff0f2;grid-column:1/-1">
+      <div class="sim-sum-lbl">⚠️ Saldo restante após simulação</div>
+      <div class="sim-sum-val" style="color:#CC092F">${brl(saldoFinal)}</div>
+    </div>`:''}
+  `;
+
+  // Timeline
+  const tl = document.getElementById('sim-timeline');
+  const maxVal = Math.max(...timeline.map(t=>t.totalDevido));
+  tl.innerHTML = timeline.map(t=>{
+    const pct = Math.min(t.saldoDepois/maxVal*100,100);
+    const pctPago = Math.min(t.pagamento/t.totalDevido*100,100);
+    const color = t.quitado?'#2E7D32':t.saldoDepois<t.saldoAntes?'#E65100':'#CC092F';
+    const icon = t.quitado?'✅':t.pagamento>=t.totalDevido?'✅':t.pagamento>0?'🔶':'🔴';
+    return `<div class="sim-tl-row">
+      <div class="sim-tl-mes">${icon} ${t.mes}</div>
+      <div class="sim-tl-bar-wrap">
+        <div class="sim-tl-bar" style="width:${pct}%;background:${color}"></div>
+      </div>
+      <div class="sim-tl-vals">
+        <span style="color:#2E7D32">pago ${brl(t.pagamento)}</span> ·
+        <span style="color:${color};font-weight:600">resta ${brl(t.saldoDepois)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
 
 function copyMsg(){
   const txt = `Oi! Segue a fatura fechada de [MÊS/ANO], o extrato em aberto de [DATA] e o HTML atual.\n\nPor favor:\n1. Adicione a aba do novo mês com os lançamentos\n2. Atualize a aba "Em aberto" com os novos lançamentos\n3. Recalcule o planejamento com as parcelas atualizadas\n4. Mantenha o histórico dos meses anteriores\n\nMeu salário continua R$ 9.000/mês.`;
