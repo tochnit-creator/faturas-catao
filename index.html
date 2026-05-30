@@ -278,6 +278,7 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
     <div class="tab active"    onclick="showTab('overview')">📊 Visão geral</div>
     <div class="tab"           onclick="showTab('parcelas')">📅 Parcelas futuras</div>
     <div class="tab"           onclick="showTab('abr26')">Abr/26</div>
+    <div class="tab"           onclick="showTab('jun26')">Jun/26</div>
     <div class="tab"           onclick="showTab('mai26')">Mai/26</div>
     <div class="tab"           onclick="showTab('planejamento')">💡 Planejamento</div>
     <div class="tab"           onclick="showTab('simulador')">🧮 Simulador</div>
@@ -389,6 +390,34 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
     </div>
   </div>
 
+  <!-- ══ JUN/26 ══ -->
+  <div class="view" id="tab-jun26">
+    <div class="cards" id="cards-jun26">
+      <div class="card on" onclick="filt('jun26','all',0)"><div class="clbl">Total da fatura</div><div class="cval main" style="color:#2E7D32">R$ 18.153,54</div><div class="csub">venc. 10/06/2026</div></div>
+      <div class="card"    onclick="filt('jun26','vista',1)"><div class="clbl">À vista</div><div class="cval c-vista" id="jun26-v-vista">—</div><div class="csub" id="jun26-s-vista">—</div></div>
+      <div class="card"    onclick="filt('jun26','parc',2)"><div class="clbl">Parcelado este mês</div><div class="cval c-parc" id="jun26-v-parc">—</div><div class="csub" id="jun26-s-parc">—</div></div>
+      <div class="card"    onclick="filt('jun26','fut',3)"><div class="clbl">Parcelado futuro</div><div class="cval c-fut">R$ 12.441,14</div><div class="csub">comprometido ↓ melhorou!</div></div>
+      <div class="card"    onclick="filt('jun26','estorno',4)"><div class="clbl">Pagamentos/Estornos</div><div class="cval c-est" id="jun26-v-est">—</div><div class="csub" id="jun26-s-est">—</div></div>
+    </div>
+    <div class="notice" style="background:#e8f5e9;border-color:#a5d6a7;color:#1b5e20">🎉 Você pagou R$ 19.151,88 nesta fatura (R$ 4.020 boleto + R$ 15.000 PIX). Rotativo cobrado: R$ 876,98.</div>
+    <div class="section"><div class="sec-ttl"><span>Gastos por categoria</span></div><div id="bars-jun26"></div></div>
+    <div class="section">
+      <div class="sec-ttl"><span id="ttl-jun26">Todos os lançamentos</span><span id="cnt-jun26"></span></div>
+      <div class="srow">
+        <input type="text" id="q-jun26" placeholder="Buscar..." oninput="renderTable('jun26')">
+        <select id="tp-jun26" onchange="renderTable('jun26')">
+          <option value="">Todos os tipos</option><option value="vista">À vista</option>
+          <option value="parc">Parcelado</option><option value="estorno">Estorno</option><option value="cambio">Câmbio</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table><thead><tr><th class="col-d">Data</th><th>Descrição</th><th class="col-p">Parcelas</th><th class="col-t">Tipo</th><th class="col-v">Valor</th></tr></thead>
+        <tbody id="tb-jun26"></tbody></table>
+        <div class="foot"><span>Total filtrado</span><strong id="ft-jun26">—</strong></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ MAI/26 ══ -->
   <div class="view" id="tab-mai26">
     <div class="cards" id="cards-mai26">
@@ -418,7 +447,7 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 
   <!-- ══ EM ABERTO ══ -->
   <div class="view" id="tab-aberto">
-    <div class="notice">⚡ Extrato em aberto — lançamentos desde 03/05/2026, atualizado em 11/05/2026. Esta fatura ainda está acumulando.</div>
+    <div class="notice">⚡ Extrato em aberto — lançamentos desde 03/05/2026, atualizado em 28/05/2026. Esta fatura ainda está acumulando.</div>
     <div class="cards" id="cards-aberto">
       <div class="card on"><div class="clbl">Saldo anterior</div><div class="cval c-ab">R$ 13.902,67</div><div class="csub">fatura mai/26</div></div>
       <div class="card"><div class="clbl">Novos lançamentos</div><div class="cval c-ab" id="ab-v-novos">—</div><div class="csub" id="ab-s-novos">—</div></div>
@@ -966,75 +995,184 @@ const MESES = {
       ["24/03/26","KITTL.COM USD120","-","cambio",120.00],
     ]
   },
-    aberto:{
-    label:'Em aberto',venc:'Acumulando...',total:null,saldoAnterior:13902.67,color:'#E65100',
+    jun26:{
+    label:'Jun/26',venc:'10/06/2026',total:18153.54,futuro:12441.14,color:'#2E7D32',
     rows:[
-      ["12/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",69.22],
-      ["11/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
-      ["11/05/26","MP*CLARO","-","vista",100.00],
-      ["11/05/26","5 CARTOES 23JM9L","-","vista",5.00],
-      ["11/05/26","DL*UBERRIDES","-","vista",21.98],
-      ["11/05/26","COSTASILVA","-","vista",50.00],
-      ["11/05/26","MP*ABBASREPRESEN","-","vista",11.11],
-      ["11/05/26","MP*ABBASREPRESEN","-","vista",761.40],
-      ["10/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
-      ["10/05/26","APPLE.COM/BILL.","-","vista",61.79],
-      ["10/05/26","NETFLIX.COM","-","vista",59.90],
-      ["10/05/26","PIA BURGUER E PIZZA","-","vista",101.00],
-      ["09/05/26","APPLE.COM/BILL.","-","vista",35.00],
-      ["09/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",39.95],
-      ["09/05/26","RESTAURANTE NOVA OPCAO","-","vista",95.00],
-      ["09/05/26","MERCADOLIVRE*NOPRATOCAFEE","-","vista",36.90],
-      ["09/05/26","MERCADOLIVRE*ALINE","-","vista",54.21],
-      ["09/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",118.72],
-      ["09/05/26","MERCADOLIVRE*NAYPER","-","estorno",-28.99],
-      ["08/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",484.53],
-      ["08/05/26","OITENTA AUTO POSTO LTD","-","vista",97.86],
-      ["08/05/26","CENTRO AUTOMOTIVO BAP","-","vista",40.00],
-      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",28.99],
-      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",31.99],
-      ["08/05/26","IFD*IFOOD","-","vista",114.38],
-      ["08/05/26","DL*UBERRIDES","-","vista",32.98],
-      ["08/05/26","MERCADO*MERCADOLIVRE","-","vista",157.38],
-      ["08/05/26","MERCADOLIVRE*NAYPER","-","estorno",-31.99],
+      // Créditos/pagamentos
       ["08/05/26","PAG BOLETO BANCARIO","-","estorno",-4020.00],
-      ["07/05/26","MP*ABBASREPRESEN","-","vista",40.40],
-      ["07/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",58.87],
-      ["07/05/26","APPLE.COM/BILL.","-","vista",109.90],
-      ["07/05/26","IFD*PET SHOP DR HATO L","-","vista",104.90],
-      ["07/05/26","MP*ABBASREPRESEN","-","vista",319.47],
+      ["28/05/26","PAGTO ANTECIPADO PIX","-","estorno",-15000.00],
+      ["28/05/26","IOF S/ TRANS INTER REAIS","-","vista",15.17],
+      ["28/05/26","ENCARGOS DE ROTATIVO","-","juros",876.98],
+      // Parcelados antigos
+      ["25/06/25","MERCADOPAGO*MALAVAZI","11/12","parc",663.33],
+      ["11/09/25","JM DRA JOYCE MICH","9/10","parc",182.33],
+      ["11/09/25","MAGALU FL 568","9/10","parc",246.40],
+      ["25/01/26","MERCADOLIVRE*MERCADO","5/6","parc",179.92],
+      ["02/03/26","MP*VISAOPRODUCOES","3/5","parc",275.00],
+      ["04/03/26","PG *HUTZ","3/3","parc",360.00],
+      ["05/03/26","MERCADOLIVRE*8PRODUT","3/3","parc",194.33],
+      ["06/03/26","MP*8PRODUTOS","3/10","parc",135.54],
+      ["07/03/26","EC *MERCADOLIVRE","3/6","parc",152.49],
+      ["07/03/26","EC *MERCADOLIVRE","3/6","parc",44.95],
+      ["08/03/26","MERCADOLIVRE*MERCADO","3/4","parc",38.47],
+      ["08/03/26","MERCADOLIVRE*MERCADO","3/4","parc",169.14],
+      ["09/03/26","MP*MERCADOLIVRE","3/10","parc",97.90],
+      ["09/03/26","MERCADOLIVRE*VPSOM","3/3","parc",138.68],
+      ["13/03/26","MP*ARMAZEMDASESP","3/10","parc",87.00],
+      ["14/03/26","MERCADOLIVRE*FERRETT","3/3","parc",30.32],
+      ["21/03/26","MP*MERCADOLIVRE","3/10","parc",97.00],
+      ["23/03/26","MP*RCKAUDIO","3/10","parc",246.90],
+      ["29/03/26","MP*MERCADOLIVRE","2/10","parc",75.80],
+      ["01/04/26","MERCADOLIVRE*ARIZYMU","2/2","parc",62.00],
+      ["01/04/26","ASSAI ATACADISTA LJ","2/2","parc",65.40],
+      // À vista abril/maio
+      ["25/04/26","DEB CHGBK MANUAL","-","vista",201.30],
+      ["28/04/26","APPLE.COM/BILL.","-","vista",67.80],
+      ["28/04/26","DL*UBERRIDES","-","vista",8.96],
+      ["29/04/26","CENTRO AUTOMOTIVO BAP","-","vista",50.00],
+      ["29/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",229.88],
+      ["29/04/26","MP*PORTERIEREVESTIMENTOS","-","vista",104.49],
+      ["29/04/26","DL*UBERRIDES","-","vista",20.94],
+      ["29/04/26","COSTASILVA","-","vista",40.00],
+      ["01/05/26","UBER * PENDING","-","vista",15.94],
+      ["01/05/26","AUTO POSTO METROPOLE L","-","vista",50.00],
+      ["01/05/26","CONCESSIONARIA SPMAR","-","vista",5.40],
+      ["01/05/26","DL*UBERRIDES","-","vista",11.94],
+      ["01/05/26","EBN *PLAYSTATION","-","vista",33.11],
+      ["01/05/26","DL*UBERRIDES","-","vista",8.95],
+      ["02/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",62.89],
+      ["02/05/26","PANIF E CONFEITARIA JA","-","vista",103.10],
+      ["02/05/26","LA DONNA PIZZA","-","vista",217.00],
+      ["02/05/26","MP*MERCADOLIVRE","1/9","parc",154.88],
+      ["02/05/26","MERCADOLIVRE*VPSOM","1/9","parc",144.42],
+      ["02/05/26","MERCADOLIVRE*TURUM","-","vista",78.00],
+      ["02/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",141.20],
+      ["03/05/26","APPLE.COM/BILL.","-","vista",59.80],
+      ["03/05/26","IFD*ARMAZEM 672 COMERC","-","vista",23.79],
+      ["03/05/26","AUTOMIX","-","vista",50.00],
+      ["03/05/26","IFD*55913124 DALVA BEA","-","vista",95.85],
+      ["03/05/26","PADDLE.NET* CRYO MIX","-","vista",79.00],
+      ["04/05/26","Google One","-","vista",96.99],
+      ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",122.46],
+      ["04/05/26","A P NOVO OURO NEGRO","-","vista",250.00],
+      ["04/05/26","APPLE.COM/BILL.","-","vista",53.90],
+      ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",2129.80],
+      ["04/05/26","PIKA.ART","-","cambio",181.70],
+      ["05/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",127.79],
+      ["05/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",149.09],
+      ["05/05/26","MP*ABBASREPRESEN","-","vista",197.16],
+      ["05/05/26","MP*ABBASREPRESEN","-","vista",69.17],
+      ["05/05/26","MP*ABBASREPRESEN","-","vista",432.00],
       ["06/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",34.47],
       ["06/05/26","MP*ABBASREPRESEN","-","vista",305.92],
       ["06/05/26","MP*ABBASREPRESEN","-","vista",106.70],
       ["06/05/26","NETFLIX.COM","-","vista",57.80],
-      ["05/05/26","MP*ABBASREPRESEN","-","vista",197.16],
-      ["05/05/26","MP*ABBASREPRESEN","-","vista",69.17],
-      ["05/05/26","MP*ABBASREPRESEN","-","vista",432.00],
-      ["05/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",127.79],
-      ["05/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",149.09],
-      ["04/05/26","PIKA.ART","-","cambio",181.70],
-      ["04/05/26","IOF S/ TRANS INTER REAIS","-","vista",6.36],
-      ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",122.46],
-      ["04/05/26","APPLE.COM/BILL.","-","vista",53.90],
-      ["04/05/26","A P NOVO OURO NEGRO","-","vista",250.00],
-      ["04/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",2129.80],
-      ["04/05/26","Google One","-","vista",96.99],
-      ["03/05/26","PADDLE.NET* CRYO MIX","-","vista",79.00],
-      ["03/05/26","APPLE.COM/BILL.","-","vista",59.80],
-      ["03/05/26","AUTOMIX","-","vista",50.00],
-      ["03/05/26","IFD*ARMAZEM 672 COMERC","-","vista",23.79],
-      ["03/05/26","IFD*55913124 DALVA BEA","-","vista",95.85],
-      ["03/05/26","IOF S/ TRANS INTER REAIS","-","vista",2.77],
-      ["02/05/26","MERCADOLIVRE*VPSOM","-","parc",144.42],
-      ["02/05/26","MP*MERCADOLIVRE","-","parc",154.88],
-      ["02/05/26","MERCADOLIVRE*TURUM","-","vista",78.00],
-      ["02/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",141.20],
-      ["02/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",62.89],
-      ["02/05/26","PANIF E CONFEITARIA JA","-","vista",103.10],
-      ["02/05/26","LA DONNA PIZZA","-","vista",217.00],
-      ["01/05/26","DL*UBERRIDES","-","vista",8.95],
-      ["01/05/26","UBER * PENDING","-","vista",15.94],
-      ["01/05/26","AUTO POSTO METROPOLE L","-","vista",50.00],
+      ["07/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",58.87],
+      ["07/05/26","IFD*PET SHOP DR HATO L","-","vista",104.90],
+      ["07/05/26","MP*ABBASREPRESEN","-","vista",319.47],
+      ["07/05/26","APPLE.COM/BILL","-","vista",109.90],
+      ["07/05/26","MP*ABBASREPRESEN","-","vista",40.40],
+      ["07/05/26","APPLE.COM/BILL","-","estorno",-70.90],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",31.99],
+      ["08/05/26","IFD*IFOOD","-","vista",114.38],
+      ["08/05/26","MERCADO*MERCADOLIVRE","-","vista",157.38],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","estorno",-31.99],
+      ["08/05/26","CENTRO AUTOMOTIVO BAP","-","vista",40.00],
+      ["08/05/26","MERCADOLIVRE*NAYPER","-","vista",28.99],
+      ["08/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",484.53],
+      ["08/05/26","DL*UBERRIDES","-","vista",32.98],
+      ["08/05/26","OITENTA AUTO POSTO LTD","-","vista",97.86],
+      ["09/05/26","MERCADOLIVRE*NAYPER","-","estorno",-28.99],
+      ["09/05/26","APPLE.COM/BILL","-","vista",35.00],
+      ["09/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",39.95],
+      ["09/05/26","MERCADOLIVRE*NOPRATOCAFEE","-","vista",36.90],
+      ["09/05/26","RESTAURANTE NOVA OPCAO","-","vista",95.00],
+      ["09/05/26","MERCADOLIVRE*ALINE","-","vista",54.21],
+      ["09/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",118.72],
+      ["10/05/26","PIA BURGUER E PIZZA","-","vista",101.00],
+      ["10/05/26","NETFLIX.COM","-","vista",59.90],
+      ["10/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
+      ["10/05/26","APPLE.COM/BILL","-","vista",61.79],
+      ["11/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",266.23],
+      ["11/05/26","MP*CLARO","-","vista",100.00],
+      ["11/05/26","DL*UBERRIDES","-","vista",21.98],
+      ["11/05/26","5 CARTOES 23JM9L","-","vista",5.00],
+      ["11/05/26","MP*ABBASREPRESEN","-","vista",11.11],
+      ["11/05/26","MP*ABBASREPRESEN","-","vista",761.40],
+      ["11/05/26","COSTASILVA","-","vista",50.00],
+      ["12/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",69.22],
+      ["13/05/26","APPLE.COM/BILL","-","vista",53.90],
+      ["13/05/26","IFD*DROGARIA SAO PAULO","-","vista",145.97],
+      ["13/05/26","AUTO P POLO PETROQUIMI","-","vista",50.00],
+      ["14/05/26","UBER * PENDING","-","vista",28.94],
+      ["14/05/26","Hitamax","-","vista",85.71],
+      ["15/05/26","MP*ITAUUNIBANCOSA","-","vista",189.69],
+      ["15/05/26","UBER * PENDING","-","vista",39.93],
+      ["15/05/26","SOUTH AMERICAN COPA","1/2","parc",212.27],
+      ["15/05/26","AQUA RIO","1/3","parc",76.68],
+      ["15/05/26","UBER * PENDING","-","vista",34.93],
+      ["15/05/26","UBER * PENDING","-","vista",38.08],
+      ["15/05/26","LA DONNA PIZZA","-","vista",164.45],
+      ["15/05/26","UBER * PENDING","-","vista",11.98],
+      ["15/05/26","UBER * PENDING","-","vista",21.98],
+      ["16/05/26","UBER * PENDING","-","vista",35.01],
+      ["16/05/26","UBER * PENDING","-","vista",42.98],
+      ["16/05/26","UBER * PENDING","-","vista",17.92],
+      ["16/05/26","UBER *TRIP HELP.UBER.COM","-","vista",23.85],
+      ["16/05/26","IFD*IFOOD","-","vista",12.90],
+      ["16/05/26","HONDARRIBIA RESTAURANT","-","vista",141.25],
+      ["16/05/26","MIRAGE COMERCIO DE COM","-","vista",97.35],
+      ["16/05/26","IFD*PANIFICADORA E CON","-","vista",25.67],
+      ["16/05/26","QUEILA EULINAVDA","-","vista",50.00],
+      ["16/05/26","APPLE.COM/BILL","-","vista",66.90],
+      ["16/05/26","UBER * PENDING","-","vista",14.94],
+      ["16/05/26","KLINGAI.COM","-","cambio",26.38],
+      ["17/05/26","UBER * PENDING","-","vista",54.96],
+      ["17/05/26","IFD*PET CENTER COMERCI","-","vista",135.46],
+      ["17/05/26","AUTO POSTO METROPOLE L","-","vista",50.00],
+      ["17/05/26","Hitamax","-","vista",91.00],
+      ["17/05/26","APPLE.COM/BILL","-","vista",46.00],
+      ["17/05/26","KLINGAI.COM","-","cambio",26.38],
+      ["18/05/26","IFD*CS CHOCOLATES LTDA","-","vista",50.97],
+      ["18/05/26","COSTASILVA","-","vista",50.00],
+      ["18/05/26","COSTASILVA","-","vista",4.52],
+      ["19/05/26","APPLE.COM/BILL","-","vista",689.00],
+      ["19/05/26","IFD*IFOOD","-","vista",142.42],
+      ["21/05/26","COSTASILVA","-","vista",107.55],
+      ["22/05/26","PANIFICADORA MG","-","vista",54.00],
+      ["23/05/26","RESTAURANTE NOVA OPCAO","-","vista",69.00],
+      ["23/05/26","MERCADOLIVRE*MERCADOLIVRE","-","vista",128.00],
+      ["23/05/26","99FOOD *99FOOD","-","vista",87.15],
+      ["23/05/26","APPLE.COM/BILL","-","vista",79.90],
+      ["23/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",239.60],
+      ["24/05/26","MP*ABBASREPRESEN","-","vista",153.51],
+      ["24/05/26","UBER * PENDING","-","vista",22.94],
+      ["25/05/26","MP*ABBASREPRESEN","-","vista",189.68],
+      ["25/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",53.25],
+      ["25/05/26","SKYFIT ACADEMIA - JORG","-","vista",149.90],
+      ["26/05/26","MP*PORTERIEREVESTIMENTOS","-","vista",1384.37],
+      ["27/05/26","IFD*PET CENTER COMERCI","-","vista",114.97],
+      ["27/05/26","BMB*CLARO11945807217","-","vista",100.00],
+      ["27/05/26","ANUIDADE DIFERENCIADA","7/12","parc",100.00],
+      // Cartão 1104
+      ["29/11/25","E AGENCIAS","6/6","parc",1472.87],
+      ["11/04/26","MP*GENDO","2/12","parc",34.32],
+      ["11/04/26","IG*GENDO","2/12","parc",30.00],
+      ["29/04/26","TOTALPASS","-","vista",89.90],
+      ["12/05/26","MP*GLADIADORESSUP","1/2","parc",207.22],
+      ["13/05/26","SOUTH AMERICAN COPACAB","-","vista",424.53],
+      ["15/05/26","PAINEIRAS CORCOVADO","1/3","parc",88.00],
+      ["15/05/26","BONDINHO PAO*BOND","1/3","parc",138.00],
+      ["17/05/26","APPLE.COM/BILL","-","vista",19.90],
+      ["18/05/26","APPLE.COM/BILL","-","vista",9.99],
+      ["24/05/26","KITTL.COM","-","cambio",120.00],
+      ["27/05/26","TOTALPASS","-","vista",99.90],
+    ]
+  },
+    aberto:{
+    label:'Em aberto',venc:'Fatura fecha 28/05/2026',total:null,saldoAnterior:13902.67,color:'#E65100',
+    rows:[
+      // Fatura acabou de fechar em 28/05/2026 — novos lançamentos aparecerão aqui
     ]
   }
 };
@@ -1136,11 +1274,18 @@ function renderParcGrid(items){
 function calcSummary(key){
   const m=MESES[key];let sv=0,nv=0,sp=0,np=0,se=0,ne=0;
   m.rows.forEach(r=>{const t=r[3],v=r[4];
-    if(t==='vista'||t==='cambio'){sv+=v;nv++;}
+    if(t==='vista'||t==='cambio'||t==='juros'){sv+=v;nv++;}
     else if(t==='parc'){sp+=v;np++;}
     else if(t==='estorno'){se+=Math.abs(v);ne++;}
   });
-  if(key==='abr26'){
+  if(key==='jun26'){
+    document.getElementById('jun26-v-vista').textContent=brl(sv);
+    document.getElementById('jun26-s-vista').textContent=nv+' lançamentos';
+    document.getElementById('jun26-v-parc').textContent=brl(sp);
+    document.getElementById('jun26-s-parc').textContent=np+' parcelas';
+    document.getElementById('jun26-v-est').textContent=brl(se);
+    document.getElementById('jun26-s-est').textContent=ne+' itens';
+  } else if(key==='abr26'){
     document.getElementById('abr26-v-vista').textContent=brl(sv);
     document.getElementById('abr26-s-vista').textContent=nv+' lançamentos';
     document.getElementById('abr26-v-parc').textContent=brl(sp);
@@ -1223,7 +1368,7 @@ function buildOverview(){
     <div class="ov-card"><div class="ov-ttl">Total gasto (faturas fechadas)</div><div class="ov-val">${brl(soma)}</div><div class="ov-sub">${keys.length} fatura(s) registrada(s)</div></div>
     <div class="ov-card"><div class="ov-ttl">Maior fatura</div><div class="ov-val">${brl(max)}</div><div class="ov-sub">${MESES[keys[totais.indexOf(max)]].label}</div></div>
     <div class="ov-card"><div class="ov-ttl">Em aberto agora</div><div class="ov-val" style="color:#E65100">${brl(13902.67+abNovos)}</div><div class="ov-sub">acumulando</div></div>
-    <div class="ov-card"><div class="ov-ttl">Comprometido futuro</div><div class="ov-val" style="color:#6A1B9A">R$ 18.821,13</div><div class="ov-sub">parcelas restantes</div></div>
+    <div class="ov-card"><div class="ov-ttl">Comprometido futuro</div><div class="ov-val" style="color:#6A1B9A">R$ 12.441,14</div><div class="ov-sub">parcelas restantes</div></div>
   `;
   const el=document.getElementById('month-bars');el.innerHTML='';
   keys.forEach((k,i)=>{
@@ -1236,7 +1381,7 @@ function buildOverview(){
 function showTab(key){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('visible'));
   document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  const tabKeys=['overview','parcelas','planejamento','simulador','guia','abr26','mai26','aberto'];
+  const tabKeys=['overview','parcelas','planejamento','simulador','guia','abr26','mai26','jun26','aberto'];
   const idx=tabKeys.indexOf(key);
   if(idx>=0)document.querySelectorAll('.tab')[idx].classList.add('active');
   document.getElementById('tab-'+key).classList.add('visible');
@@ -1244,29 +1389,31 @@ function showTab(key){
 
 /* ══ PLANEJAMENTO ══ */
 const PARCELAS_PLAN = [
-  {desc:"MERCADOPAGO*MALAVAZI",   atual:7,  total:12, val:663.33},
-  {desc:"JM DRA JOYCE MICH",      atual:5,  total:10, val:182.33},
-  {desc:"MAGALU FL 568",           atual:5,  total:10, val:246.40},
-  {desc:"JF PNEUS",                atual:2,  total:6,  val:237.09},
-  {desc:"MERCADOLIVRE*MERCADO",    atual:1,  total:6,  val:179.92},
-  {desc:"E AGENCIAS",              atual:5,  total:6,  val:1472.87},
-  {desc:"MP*VISAOPRODUCOES",       atual:2,  total:5,  val:275.00},
-  {desc:"PG *HUTZ",                atual:2,  total:3,  val:360.00},
-  {desc:"MERCADOLIVRE*8PRODUT",    atual:2,  total:3,  val:194.33},
-  {desc:"MP*8PRODUTOS",            atual:1,  total:10, val:135.54},
-  {desc:"EC *MERCADOLIVRE (1)",    atual:2,  total:6,  val:152.49},
-  {desc:"EC *MERCADOLIVRE (2)",    atual:2,  total:6,  val:44.95},
-  {desc:"MERCADOLIVRE*MERCADO(1)", atual:2,  total:4,  val:38.47},
-  {desc:"MERCADOLIVRE*MERCADO(2)", atual:2,  total:4,  val:169.14},
-  {desc:"MERCADOLIVRE*VPSOM",      atual:2,  total:3,  val:138.68},
-  {desc:"MP*MERCADOLIVRE (1)",     atual:1,  total:10, val:97.90},
-  {desc:"MP*ARMAZEMDASESP",        atual:1,  total:10, val:87.00},
-  {desc:"MP*MERCADOLIVRE (2)",     atual:1,  total:10, val:97.00},
-  {desc:"MP*RCKAUDIO",             atual:1,  total:10, val:246.90},
-  {desc:"MERCADOLIVRE*FERRETT",    atual:2,  total:3,  val:30.32},
-  {desc:"ANUIDADE DIFERENCIADA",   atual:6,  total:12, val:100.00},
-  {desc:"MP*GENDO",                atual:1,  total:12, val:34.33},
-  {desc:"IG*GENDO",                atual:1,  total:12, val:30.00},
+  {desc:"MERCADOPAGO*MALAVAZI",   atual:11, total:12, val:663.33},
+  {desc:"JM DRA JOYCE MICH",      atual:9,  total:10, val:182.33},
+  {desc:"MAGALU FL 568",           atual:9,  total:10, val:246.40},
+  {desc:"MERCADOLIVRE*MERCADO",    atual:5,  total:6,  val:179.92},
+  {desc:"MP*VISAOPRODUCOES",       atual:3,  total:5,  val:275.00},
+  {desc:"MP*8PRODUTOS",            atual:3,  total:10, val:135.54},
+  {desc:"EC *MERCADOLIVRE (1)",    atual:3,  total:6,  val:152.49},
+  {desc:"EC *MERCADOLIVRE (2)",    atual:3,  total:6,  val:44.95},
+  {desc:"MERCADOLIVRE*MERCADO(1)", atual:3,  total:4,  val:38.47},
+  {desc:"MERCADOLIVRE*MERCADO(2)", atual:3,  total:4,  val:169.14},
+  {desc:"MP*MERCADOLIVRE (1)",     atual:3,  total:10, val:97.90},
+  {desc:"MP*ARMAZEMDASESP",        atual:3,  total:10, val:87.00},
+  {desc:"MP*MERCADOLIVRE (2)",     atual:3,  total:10, val:97.00},
+  {desc:"MP*RCKAUDIO",             atual:3,  total:10, val:246.90},
+  {desc:"MP*MERCADOLIVRE (3)",     atual:2,  total:10, val:75.80},
+  {desc:"MP*MERCADOLIVRE VPSOM",   atual:1,  total:9,  val:154.88},
+  {desc:"MP*MERCADOLIVRE VP2",     atual:1,  total:9,  val:144.42},
+  {desc:"SOUTH AMERICAN COPA",     atual:1,  total:2,  val:212.27},
+  {desc:"AQUA RIO",                atual:1,  total:3,  val:76.68},
+  {desc:"ANUIDADE DIFERENCIADA",   atual:7,  total:12, val:100.00},
+  {desc:"MP*GENDO",                atual:2,  total:12, val:34.32},
+  {desc:"IG*GENDO",                atual:2,  total:12, val:30.00},
+  {desc:"MP*GLADIADORESSUP",       atual:1,  total:2,  val:207.22},
+  {desc:"PAINEIRAS CORCOVADO",     atual:1,  total:3,  val:88.00},
+  {desc:"BONDINHO PAO*BOND",       atual:1,  total:3,  val:138.00},
 ];
 const MESES_NOMES = ["","Jun/26","Jul/26","Ago/26","Set/26","Out/26","Nov/26","Dez/26","Jan/27","Fev/27","Mar/27","Abr/27","Mai/27"];
 let salario = 9000;
@@ -1404,6 +1551,7 @@ function buildPlanning(){
   buildMonthPlan();
 }
 /* ══ INIT ══ */
+calcSummary('jun26');buildBars('jun26','bars-jun26');renderTable('jun26');
 calcSummary('abr26');buildBars('abr26','bars-abr26');renderTable('abr26');
 calcSummary('mai26');buildBars('mai26','bars-mai26');renderTable('mai26');
 calcSummary('aberto');buildBars('aberto','bars-aberto');renderTable('aberto');
