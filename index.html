@@ -1698,7 +1698,7 @@ function buildCatData(monthKey){
       const cat = categorizeTx(r[1]);
       cats[cat] = (cats[cat]||0) + r[4];
       if(!catItems[cat]) catItems[cat]=[];
-      catItems[cat].push({desc:r[1], val:r[4], date:r[0]});
+      catItems[cat].push({desc:r[1], val:r[4], date:r[0], tipo:r[3], parc:r[2]});
     });
   });
   return {cats, catItems};
@@ -1718,6 +1718,17 @@ function renderCats(){
   const sorted = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
   const maxVal = sorted[0]?.[1]||1;
 
+  // Calc grand totals à vista vs parcelado
+  let grandVista=0, grandParc=0;
+  Object.values(catItems).forEach(items=>{
+    items.forEach(i=>{
+      if(i.val>0){
+        if(i.tipo==='parc') grandParc+=i.val;
+        else grandVista+=i.val;
+      }
+    });
+  });
+
   // Summary bar chart
   const sb = document.getElementById('cat-summary-bar');
   sb.innerHTML = sorted.map(([cat,val])=>{
@@ -1729,10 +1740,21 @@ function renderCats(){
       <div class="cat-sb-track"><div class="cat-sb-fill" style="width:${pct}%;background:${color}"></div></div>
       <div class="cat-sb-val" style="color:${color}">${brl(val)}</div>
     </div>`;
-  }).join('') + `<div class="cat-sb-row" style="border-top:1px solid var(--gray2);margin-top:6px;padding-top:8px">
-    <div class="cat-sb-lbl"><strong>Total</strong></div>
-    <div class="cat-sb-track"></div>
-    <div class="cat-sb-val" style="color:var(--red);font-weight:700">${brl(total)}</div>
+  }).join('') + `<div style="border-top:1px solid var(--gray2);margin-top:8px;padding-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div style="background:#fff0f2;border-radius:8px;padding:10px 14px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#CC092F;margin-bottom:3px">Total geral</div>
+      <div style="font-size:16px;font-weight:700;color:#CC092F">${brl(total)}</div>
+    </div>
+    <div style="background:#E3F0FF;border-radius:8px;padding:10px 14px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#1565C0;margin-bottom:3px">À vista</div>
+      <div style="font-size:16px;font-weight:700;color:#1565C0">${brl(grandVista)}</div>
+      <div style="font-size:10px;color:#1565C0;opacity:.7">${Math.round(grandVista/total*100)}% do total</div>
+    </div>
+    <div style="background:#FFF3E0;border-radius:8px;padding:10px 14px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#E65100;margin-bottom:3px">Parcelado</div>
+      <div style="font-size:16px;font-weight:700;color:#E65100">${brl(grandParc)}</div>
+      <div style="font-size:10px;color:#E65100;opacity:.7">${Math.round(grandParc/total*100)}% do total</div>
+    </div>
   </div>`;
 
   // Cards
@@ -1752,9 +1774,37 @@ function renderCats(){
       </div>
       <div class="cat-bar-wrap"><div class="cat-bar" style="width:${pct}%;background:${color}"></div></div>
       <div class="cat-pct">${pct}% do total · ${(catItems[cat]||[]).length} lançamentos</div>
+      ${(()=>{
+        const itens = catItems[cat]||[];
+        const totalVista = itens.filter(i=>i.tipo!=='parc').reduce((s,i)=>s+i.val,0);
+        const totalParc  = itens.filter(i=>i.tipo==='parc').reduce((s,i)=>s+i.val,0);
+        const nVista = itens.filter(i=>i.tipo!=='parc').length;
+        const nParc  = itens.filter(i=>i.tipo==='parc').length;
+        return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0">
+          <div style="background:#E3F0FF;border-radius:7px;padding:8px 10px">
+            <div style="font-size:10px;color:#1565C0;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">À vista (${nVista})</div>
+            <div style="font-size:14px;font-weight:700;color:#1565C0">${brl(totalVista)}</div>
+          </div>
+          <div style="background:#FFF3E0;border-radius:7px;padding:8px 10px">
+            <div style="font-size:10px;color:#E65100;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Parcelado (${nParc})</div>
+            <div style="font-size:14px;font-weight:700;color:#E65100">${brl(totalParc)}</div>
+          </div>
+        </div>`;
+      })()}
       <span class="cat-toggle" onclick="document.getElementById('${id}').classList.toggle('open');this.textContent=this.textContent.includes('▼')?'▲ fechar':'▼ ver detalhes'">▼ ver detalhes</span>
       <div class="cat-items" id="${id}">
-        ${items.map(i=>`<div class="cat-item-row"><span>${i.date} · ${i.desc.slice(0,30)}</span><span style="color:var(--text);font-weight:500">${brl(i.val)}</span></div>`).join('')}
+        ${items.map(i=>{
+          const isParc = i.tipo==='parc' && i.parc && i.parc.includes('/');
+          const [atual,total] = isParc ? i.parc.split('/').map(Number) : [0,0];
+          const rest = isParc ? total-atual : 0;
+          const badge = isParc
+            ? `<span style="background:#FFF3E0;color:#E65100;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:600;margin-left:4px">${i.parc} · faltam ${rest}x · R$ ${(i.val*rest).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>`
+            : `<span style="background:#E3F0FF;color:#1565C0;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:600;margin-left:4px">À vista</span>`;
+          return `<div class="cat-item-row" style="align-items:center;flex-wrap:wrap;gap:4px">
+            <span style="flex:1;min-width:0">${i.date} · ${i.desc.slice(0,28)}${badge}</span>
+            <span style="color:var(--text);font-weight:500;flex-shrink:0">${brl(i.val)}</span>
+          </div>`;
+        }).join('')}
       
       </div>
     </div>`;
