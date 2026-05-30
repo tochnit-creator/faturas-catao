@@ -149,6 +149,31 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .salary-input-wrap input{border:1.5px solid var(--gray2);border-radius:7px;padding:7px 12px;font-size:14px;font-weight:500;width:150px;outline:none;transition:border-color .15s}
 .salary-input-wrap input:focus{border-color:var(--red)}
 .salary-input-wrap button{background:var(--red);color:white;border:none;border-radius:7px;padding:8px 18px;font-size:13px;cursor:pointer;font-weight:500}
+/* ══ CATEGORIAS ══ */
+.cat-month-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.cat-month-btn{padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--gray2);background:var(--white);color:var(--muted);transition:all .15s}
+.cat-month-btn.on{background:var(--red);color:white;border-color:var(--red)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-bottom:14px}
+.cat-card{background:var(--white);border-radius:10px;border:1px solid var(--gray2);padding:16px}
+.cat-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cat-icon-name{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.cat-icon{font-size:20px}
+.cat-total{font-size:16px;font-weight:700;color:var(--red)}
+.cat-bar-wrap{background:var(--gray);border-radius:4px;height:8px;overflow:hidden;margin-bottom:6px}
+.cat-bar{height:100%;border-radius:4px;transition:width .4s}
+.cat-pct{font-size:11px;color:var(--muted)}
+.cat-items{margin-top:8px;display:none}
+.cat-items.open{display:block}
+.cat-item-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--gray);color:var(--muted)}
+.cat-item-row:last-child{border-bottom:none}
+.cat-toggle{font-size:11px;color:var(--red);cursor:pointer;margin-top:4px;display:inline-block}
+.cat-summary-bar{margin-bottom:14px}
+.cat-sb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}
+.cat-sb-lbl{width:200px;flex-shrink:0;display:flex;align-items:center;gap:6px}
+.cat-sb-track{flex:1;background:var(--gray);border-radius:4px;height:12px;overflow:hidden}
+.cat-sb-fill{height:100%;border-radius:4px}
+.cat-sb-val{width:80px;text-align:right;font-weight:500;flex-shrink:0}
+
 /* ══ SIMULADOR ══ */
 .sim-hero{background:linear-gradient(135deg,#1a1a2e 0%,#1565C0 100%);border-radius:12px;padding:22px;margin-bottom:14px;color:white}
 .sim-hero-ttl{font-size:17px;font-weight:600;margin-bottom:4px}
@@ -277,6 +302,7 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
   <div class="tabs-wrap" id="tabs">
     <div class="tab active"    onclick="showTab('overview')">📊 Visão geral</div>
     <div class="tab"           onclick="showTab('parcelas')">📅 Parcelas futuras</div>
+    <div class="tab"           onclick="showTab('categorias')">🏷️ Categorias</div>
     <div class="tab"           onclick="showTab('abr26')">Abr/26</div>
     <div class="tab"           onclick="showTab('jun26')">Jun/26</div>
     <div class="tab"           onclick="showTab('mai26')">Mai/26</div>
@@ -293,6 +319,21 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
       <div class="sec-ttl"><span>Total por fatura — clique para ir ao mês</span></div>
       <div id="month-bars"></div>
     </div>
+  </div>
+
+  <!-- ══ CATEGORIAS ══ -->
+  <div class="view" id="tab-categorias">
+    <div class="section">
+      <div class="sec-ttl"><span>🏷️ Gastos por categoria</span><span id="cat-period-lbl">Todos os meses</span></div>
+      <div class="cat-month-tabs">
+        <button class="cat-month-btn on" onclick="showCatMonth('all',this)">Todos</button>
+        <button class="cat-month-btn" onclick="showCatMonth('abr26',this)">Abr/26</button>
+        <button class="cat-month-btn" onclick="showCatMonth('mai26',this)">Mai/26</button>
+        <button class="cat-month-btn" onclick="showCatMonth('jun26',this)">Jun/26</button>
+      </div>
+      <div class="cat-summary-bar" id="cat-summary-bar"></div>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
   </div>
 
   <!-- ══ PLANEJAMENTO ══ -->
@@ -1447,7 +1488,7 @@ function buildOverview(){
 function showTab(key){
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('visible'));
   document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  const tabKeys=['overview','parcelas','planejamento','simulador','guia','abr26','mai26','jun26','aberto'];
+  const tabKeys=['overview','parcelas','categorias','planejamento','simulador','guia','abr26','mai26','jun26','aberto'];
   const idx=tabKeys.indexOf(key);
   if(idx>=0)document.querySelectorAll('.tab')[idx].classList.add('active');
   document.getElementById('tab-'+key).classList.add('visible');
@@ -1616,12 +1657,117 @@ function buildPlanning(){
   buildBudgetBars();
   buildMonthPlan();
 }
+var CAT_COLORS = {
+  '🏗️ Casa & Reforma':      '#CC092F',
+  '🍽️ Alimentação':         '#E65100',
+  '📦 Mercado Livre & Outros': '#1565C0',
+  '📱 Tech & Assinaturas':  '#6A1B9A',
+  '🚗 Transporte & Auto':   '#2E7D32',
+  '✈️ Viagem & Lazer':      '#0277BD',
+  '🛍️ Compras & Varejo':    '#AD1457',
+  '🐾 Pet':                  '#558B2F',
+  '💸 Juros & Encargos':    '#B71C1C',
+  '📞 Telefone & Contas':   '#37474F',
+  '🔧 Outros':               '#888',
+};
+
+function categorizeTx(desc){
+  const d = desc.toUpperCase();
+  if(/PORTERIE|COPAFER|FOQUITO|FRIOLAR|PLUGIMPORT|BILBRU|ENTERLIGHT|ODINSHOP|GRUPODJMOR|NINAVIB|LUTECPA|VILLARM|THAPRES|DEEPSOU|CABOSSP|ARTBOX|FERRETT|VPSOM|RCKAUDIO|EMPORIOGIL|SHOPCENTER|BRUTUSCAR|ABBASREPRESEN/.test(d)) return '🏗️ Casa & Reforma';
+  if(/UBER|DL.UBER|CONCESSIONARIA|EXPRESSO 1901|GLOBE LAVA|AUTO POSTO|OITENTA AUTO|AUTO P POLO|CENTRO AUTOMOTIVO|POSTODE|JF PNEUS|AUTOMIX|ITAUUNIBANCOSA/.test(d)) return '🚗 Transporte & Auto';
+  if(/IFOOD|PIZZA|BURGUER|PANIFICADORA|PANIF|CONFEITARIA|RESTAURANTE|99FOOD|LA DONNA|HOMEBURGER|BISTRO|ARCOS DOURADOS|BENDITO GREGGO|PIA BURGUER|CB FOOD|FRANCISCA|FRANCISCOCARLOS|HONDARRIBIA|DANILOLIMA|NOPRATOCAFE|COSTASILVA|LUAN PEDROSA|MMC EMPORIO|OURO NEGRO|NOVA OPCAO|MERCADO PAGO.CIRI|MERCADO PAGO.DELF|CASA DE CARNES|R A LOPES|QUEILA|ARMAZEM 672|DALVA BEA|CHOCOLATES|SUPER ABC|COOP(?! OS)|ATACADAO|ASSAI|SUPERMERCADO/.test(d)) return '🍽️ Alimentação';
+  if(/APPLE|NETFLIX|GOOGLE ONE|KLINGAI|KITTL|PIKA.ART|PADDLE|DISTROKID|PLAYSTATION|FACEBK|GENDO|EZOO/.test(d)) return '📱 Tech & Assinaturas';
+  if(/PET SHOP|PETSUPERMARKET|PET CENTER|COBASI|FINPET|IFD.PET|NAYPER|MERCADOLIVRE.ALINE/.test(d)) return '🐾 Pet';
+  if(/SOUTH AMERICAN|AQUA RIO|PAINEIRAS|BONDINHO|COPACAB|MIRAGE COMERCIO|HITAMAX|SKYFIT|TOTALPASS/.test(d)) return '✈️ Viagem & Lazer';
+  if(/CLARO|BMB.CLARO/.test(d)) return '📞 Telefone & Contas';
+  if(/MAGALU|RENNER|LOJAS TOP|SHOPEE|FLAVIASEGALA|DROGARIA|5 CARTOES|JIM.COM|MIMOSCAPRICHO/.test(d)) return '🛍️ Compras & Varejo';
+  if(/ENCARGOS|ROTATIVO|IOF S/.test(d)) return '💸 Juros & Encargos';
+  if(/MERCADOLIVRE|MERCADO.LIVRE|MP.MERCADO|EC .MERCADO|MP.8PRODUTO|MERCADOLIVRE.8|MP.ARMAZEM|MALAVAZI|MERCADOLIVRE.MAGAZINE|MP.LOJA|PRISMA|JM DRA JOYCE|HUTZ|CHGBK|VISAOPRODUCOES|ANUIDADE|AGENCIAS|BRUTUSCAR|GLADIADOR|ARTBOX|MAGALU/.test(d)) return '📦 Mercado Livre & Outros';
+  return '🔧 Outros';
+}
+
+var activeCatMonth = 'all';
+function buildCatData(monthKey){
+  const cats = {};
+  const catItems = {};
+  const months = monthKey==='all' ? ['abr26','mai26','jun26'] : [monthKey];
+  months.forEach(mk=>{
+    if(!MESES[mk]) return;
+    MESES[mk].rows.forEach(r=>{
+      if(r[4]<=0) return;
+      const cat = categorizeTx(r[1]);
+      cats[cat] = (cats[cat]||0) + r[4];
+      if(!catItems[cat]) catItems[cat]=[];
+      catItems[cat].push({desc:r[1], val:r[4], date:r[0]});
+    });
+  });
+  return {cats, catItems};
+}
+
+
+function showCatMonth(key, btn){
+  activeCatMonth = key;
+  document.querySelectorAll('.cat-month-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderCats();
+}
+
+function renderCats(){
+  const {cats, catItems} = buildCatData(activeCatMonth);
+  const total = Object.values(cats).reduce((s,v)=>s+v,0);
+  const sorted = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+  const maxVal = sorted[0]?.[1]||1;
+
+  // Summary bar chart
+  const sb = document.getElementById('cat-summary-bar');
+  sb.innerHTML = sorted.map(([cat,val])=>{
+    const pct = Math.round(val/maxVal*100);
+    const pctTotal = Math.round(val/total*100);
+    const color = CAT_COLORS[cat]||'#888';
+    return `<div class="cat-sb-row">
+      <div class="cat-sb-lbl"><span>${cat.split(' ')[0]}</span><span style="font-size:12px;color:var(--text)">${cat.split(' ').slice(1).join(' ')}</span></div>
+      <div class="cat-sb-track"><div class="cat-sb-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div class="cat-sb-val" style="color:${color}">${brl(val)}</div>
+    </div>`;
+  }).join('') + `<div class="cat-sb-row" style="border-top:1px solid var(--gray2);margin-top:6px;padding-top:8px">
+    <div class="cat-sb-lbl"><strong>Total</strong></div>
+    <div class="cat-sb-track"></div>
+    <div class="cat-sb-val" style="color:var(--red);font-weight:700">${brl(total)}</div>
+  </div>`;
+
+  // Cards
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = sorted.map(([cat,val],idx)=>{
+    const pct = Math.round(val/total*100);
+    const color = CAT_COLORS[cat]||'#888';
+    const items = (catItems[cat]||[]).sort((a,b)=>b.val-a.val);
+    const id = 'cat-items-'+idx;
+    return `<div class="cat-card">
+      <div class="cat-card-header">
+        <div class="cat-icon-name">
+          <span class="cat-icon">${cat.split(' ')[0]}</span>
+          <span>${cat.split(' ').slice(1).join(' ')}</span>
+        </div>
+        <div class="cat-total" style="color:${color}">${brl(val)}</div>
+      </div>
+      <div class="cat-bar-wrap"><div class="cat-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div class="cat-pct">${pct}% do total · ${(catItems[cat]||[]).length} lançamentos</div>
+      <span class="cat-toggle" onclick="document.getElementById('${id}').classList.toggle('open');this.textContent=this.textContent.includes('▼')?'▲ fechar':'▼ ver detalhes'">▼ ver detalhes</span>
+      <div class="cat-items" id="${id}">
+        ${items.map(i=>`<div class="cat-item-row"><span>${i.date} · ${i.desc.slice(0,30)}</span><span style="color:var(--text);font-weight:500">${brl(i.val)}</span></div>`).join('')}
+      
+      </div>
+    </div>`;
+  }).join('');
+}
+
+
 /* ══ INIT ══ */
 calcSummary('jun26');buildBars('jun26','bars-jun26');renderTable('jun26');
 calcSummary('abr26');buildBars('abr26','bars-abr26');renderTable('abr26');
 calcSummary('mai26');buildBars('mai26','bars-mai26');renderTable('mai26');
 calcSummary('aberto');buildBars('aberto','bars-aberto');renderTable('aberto');
-buildOverview();buildParcelas();
+buildOverview();buildParcelas();activeCatMonth='all';renderCats();
 buildPlanning();
 
 
@@ -1892,6 +2038,8 @@ function renderSimResult(timeline, saldoInicial, totalPago, totalJuros, mesesQui
   }).join('');
 }
 
+
+/* ══ CATEGORIAS ══ */
 function copyMsg(){
   const txt = `Oi! Segue a fatura fechada de [MÊS/ANO], o extrato em aberto de [DATA] e o HTML atual.\n\nPor favor:\n1. Adicione a aba do novo mês com os lançamentos\n2. Atualize a aba "Em aberto" com os novos lançamentos\n3. Recalcule o planejamento com as parcelas atualizadas\n4. Mantenha o histórico dos meses anteriores\n\nMeu salário continua R$ 9.000/mês.`;
   navigator.clipboard.writeText(txt).then(()=>{
