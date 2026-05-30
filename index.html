@@ -447,11 +447,11 @@ td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 
   <!-- ══ EM ABERTO ══ -->
   <div class="view" id="tab-aberto">
-    <div class="notice">⚡ Extrato em aberto — lançamentos desde 03/05/2026, atualizado em 28/05/2026. Esta fatura ainda está acumulando.</div>
+    <div class="notice" style="background:#fff0f2;border-color:#ffb3be;color:#9e0020">⚠️ <strong>Fatura Jun/26 — R$ 18.153,54 com vencimento em 10/06/2026.</strong> Os novos gastos abaixo são lançamentos feitos <strong>após</strong> o fechamento da fatura (a partir de 29/05) e vão compor a próxima fatura de Jul/26.</div>
     <div class="cards" id="cards-aberto">
-      <div class="card on"><div class="clbl">Saldo anterior</div><div class="cval c-ab">R$ 13.902,67</div><div class="csub">fatura mai/26</div></div>
-      <div class="card"><div class="clbl">Novos lançamentos</div><div class="cval c-ab" id="ab-v-novos">—</div><div class="csub" id="ab-s-novos">—</div></div>
-      <div class="card"><div class="clbl">Total acumulado</div><div class="cval main" id="ab-v-total">—</div><div class="csub">saldo + novos</div></div>
+      <div class="card on"><div class="clbl">Fatura Jun/26 a pagar</div><div class="cval main" style="color:#CC092F">R$ 18.153,54</div><div class="csub">venc. 10/06/2026 ⚠️</div></div>
+      <div class="card"><div class="clbl">Novos gastos (jun)</div><div class="cval c-ab" id="ab-v-novos">—</div><div class="csub" id="ab-s-novos">acumulando...</div></div>
+      <div class="card"><div class="clbl">Total comprometido</div><div class="cval main" id="ab-v-total">—</div><div class="csub">fatura + novos gastos</div></div>
     </div>
     <div class="section"><div class="sec-ttl"><span>Novos lançamentos por categoria</span></div><div id="bars-aberto"></div></div>
     <div class="section">
@@ -1170,7 +1170,7 @@ const MESES = {
     ]
   },
     aberto:{
-    label:'Em aberto',venc:'Fatura fecha 28/05/2026',total:null,saldoAnterior:13902.67,color:'#E65100',
+    label:'Em aberto',venc:'Fatura Jun/26 vence 10/06/2026',total:null,saldoAnterior:18153.54,color:'#E65100',
     rows:[
       // Fatura acabou de fechar em 28/05/2026 — novos lançamentos aparecerão aqui
     ]
@@ -1303,7 +1303,7 @@ function calcSummary(key){
     const novos=sv+sp;
     document.getElementById('ab-v-novos').textContent=brl(novos);
     document.getElementById('ab-s-novos').textContent=(nv+np)+' itens';
-    const pago=4020.00; document.getElementById('ab-v-total').textContent=brl(13902.67-pago+novos);
+    const pago=4020.00; document.getElementById('ab-v-total').textContent=brl(18153.54+novos);
   }
 }
 
